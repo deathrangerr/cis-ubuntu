@@ -1,0 +1,23 @@
+---
+
+ubuntu2004cis_section1: true
+# ubuntu2004cis_section2: true
+# ubuntu2004cis_section3: true
+# ubuntu2004cis_section4: true
+# ubuntu2004cis_section5: true
+# ubuntu2004cis_section6: true
+
+ubuntu2004cis_rule_1_1_2: true
+ubuntu2004cis_rule_1_1_3: true
+ubuntu2004cis_rule_1_1_4: true
+ubuntu2004cis_rule_1_1_5: true
+ubuntu2004cis_rule_1_1_6: true
+ubuntu2004cis_rule_1_1_7: true
+ubuntu2004cis_rule_1_1_8: true
+ubuntu2004cis_rule_1_1_9: true
+ubuntu2004cis_rule_1_1_10: true
+
+
+
+ubtu20cis_tmp_fstab_options: "defaults,rw,nosuid,nodev,noexec,relatime,size=2G"
+ubtu20cis_dev_shm_fstab_options: "defaults,noexec,nodev,nosuid"
