@@ -1,0 +1,10 @@
+---
+# tasks file for Ubuntu2004-CIS
+
+
+- include: section1.yml
+  become: true
+  when: ubuntu2004cis_section1
+  tags: section1
+
+
