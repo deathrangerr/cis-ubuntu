@@ -1,0 +1,18 @@
+---
+- name: "MANUAL | 1.2.1 | AUDIT | Ensure package manager repositories are configured"
+  block:
+      - name: "MANUAL 1.2.1 | AUDIT | Ensure package manager repositories are configured | Get repositories"
+        command: apt-cache policy
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: ubuntu2004cis_1_2_1_apt_policy
+
+      - name: "MANUAL 1.2.1 | AUDIT | Ensure package manager repositories are configured | Message out repository configs"
+        debug:
+            msg:
+                - "Alert!!!! Below are the apt package repositories"
+                - "Please review to make sure they conform to your sites policies"
+                - "{{ ubuntu2004cis_1_2_1_apt_policy.stdout_lines }}"
+  when:
+      - ubuntu2004cis_rule_1.2.1

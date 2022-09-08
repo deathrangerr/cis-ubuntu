@@ -32,7 +32,9 @@ ubuntu2004cis_rule_1_1_21: false
 ubuntu2004cis_rule_1_1_22: false
 ubuntu2004cis_rule_1_1_22: false
 ubuntu2004cis_rule_1_1_23: false
-ubuntu2004cis_rule_1_1_24: true
+ubuntu2004cis_rule_1_1_24: false
+
+ubuntu2004cis_rule_1.2.1: true
 
 
 
