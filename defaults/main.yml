@@ -17,15 +17,31 @@ ubuntu2004cis_rule_1_1_6: false
 ubuntu2004cis_rule_1_1_7: false
 ubuntu2004cis_rule_1_1_8: false
 ubuntu2004cis_rule_1_1_9: false
-ubuntu2004cis_rule_1_1_10: true
+ubuntu2004cis_rule_1_1_10: false
 ubuntu2004cis_rule_1_1_11: false
 ubuntu2004cis_rule_1_1_12: false
 ubuntu2004cis_rule_1_1_13: false
 ubuntu2004cis_rule_1_1_14: false
 ubuntu2004cis_rule_1_1_15: false
 ubuntu2004cis_rule_1_1_16: false
-ubuntu2004cis_rule_1_1_17: true
+ubuntu2004cis_rule_1_1_17: false
+ubuntu2004cis_rule_1_1_18: false
+ubuntu2004cis_rule_1_1_19: false
+ubuntu2004cis_rule_1_1_20: false
+ubuntu2004cis_rule_1_1_21: false
+ubuntu2004cis_rule_1_1_22: false
+ubuntu2004cis_rule_1_1_22: false
+ubuntu2004cis_rule_1_1_23: false
+ubuntu2004cis_rule_1_1_24: true
+
+
+
+
+
 
 ubtu20cis_tmp_fstab_options: "defaults,rw,nosuid,nodev,noexec,relatime,size=2G"
 ubtu20cis_dev_shm_fstab_options: "defaults,noexec,nodev,nosuid"
 ubtu20cis_dev_xvdf2_fstab_options: "defaults,noexec,nodev,nosuid"
+
+# Service configuration variables, set to true to keep service
+ubuntu2004cis_allow_autofs: false

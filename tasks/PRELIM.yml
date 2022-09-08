@@ -1,0 +1,9 @@
+---
+
+- name: "PRELIM | Check for autofs service"
+  shell: "systemctl show autofs | grep LoadState | cut -d = -f 2"
+  register: ubuntu2004cis_autofs_service_status
+  changed_when: false
+  check_mode: false
+  when:
+      - ubuntu2004cis_rule_1_1_23

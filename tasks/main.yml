@@ -1,10 +1,12 @@
 ---
 # tasks file for Ubuntu2004-CIS
 
+- import_tasks: prelim.yml
 
-- include: section1.yml
-  become: true
+- name: Include section 1 
+  import_tasks: section_1/main.yml
   when: ubuntu2004cis_section1
-  tags: section1
+
+
 
 
