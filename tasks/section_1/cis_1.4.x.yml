@@ -1,0 +1,80 @@
+---
+- name: "AUTOMATED | 1.4.1 | PATCH | Ensure permissions on bootloader config are not overridden"
+  block:
+      - name: "AUTOMATED | 1.4.1 | PATCH | Ensure permissions on bootloader config are not overridden | Change chmod setting"
+        replace:
+            path: /usr/sbin/grub-mkconfig
+            regexp: 'chmod\s\d\d\d\s\${grub_cfg}.new'
+            replace: 'chmod 400 ${grub_cfg}.new'
+
+      - name: "AUTOMATED | 1.4.1 | PATCH | Ensure permissions on bootloader config are not overridden | Remove check on password"
+        lineinfile:
+            path: /usr/sbin/grub-mkconfig
+            regexp: 'if \[ \"x\$\{grub_cfg\}\" != "x" \] && ! grep "\^password" \${grub_cfg}.new'
+            line: if [ "x${grub_cfg}" != "x" ]; then
+  when:
+      - ubuntu2004cis_rule_1_4_1
+
+- name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - generate password"
+  block:
+  - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - generate password"
+    shell: "set -o pipefail;
+          if [ '{{ ubuntu2004cis_bootloader_password }}' == 'random' ];
+          then PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12); else PASSWORD='{{ ubuntu2004cis_bootloader_password }}';
+          fi;
+          echo -e \"$PASSWORD\n$PASSWORD\" | grub-mkpasswd-pbkdf2 | awk '/grub.pbkdf/{print$NF}'"
+    register: grub_pass
+    args:
+        executable: /bin/bash
+    when:
+        - ubuntu2004cis_set_boot_pass
+        - ubuntu2004cis_rule_1_4_2
+
+  - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - generate config"
+    copy:
+        dest: /etc/grub.d/00_password
+        content: "cat << EOF\nset superusers=\"root\"\npassword_pbkdf2 root {{ grub_pass.stdout }}\nEOF"
+        owner: root
+        group: root
+        mode: 0755
+    notify: generate new grub config
+    when:
+        - ubuntu2004cis_set_boot_pass and grub_pass is defined and grub_pass.stdout is defined and grub_pass.stdout | length >0
+        - ubuntu2004cis_rule_1_4_2
+
+  - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - disable password for system boot"
+    replace:
+        path: /etc/grub.d/10_linux
+        regexp: '--class os"'
+        replace: '--class os --unrestricted"'
+    notify: generate new grub config
+    when:
+        - ubuntu2004cis_set_boot_pass
+        - ubuntu2004cis_rule_1_4_2
+        - ubuntu2004cis_rule_1_4_2_disable_password
+
+- name: "AUTOMATED | 1.4.3 | PATCH | Ensure permissions on bootloader config are configured"
+  block:
+  - name: "AUTOMATED | 1.4.3 | AUDIT | Ensure permissions on bootloader config are configured | Check for Grub file"
+    stat:
+      path: /boot/grub/grub.cfg
+    check_mode: false
+    register: ubuntu2004cis_1_4_3_grub_cfg_status
+
+  - name: "AUTOMATED | 1.4.3 | PATCH | Ensure permissions on bootloader config are configured | Set permissions"
+    file:
+      path: /boot/grub/grub.cfg
+      owner: root
+      group: root
+      mode: 0400
+    when:
+      - ubuntu2004cis_1_4_3_grub_cfg_status.stat.exists
+  when:
+      - ubuntu2004cis_rule_1_4_3
+
+- name: "AUTOMATED | 1.4.4 | PATCH | Ensure authentication required for single user mode"
+  user:
+      name: root
+      password: "{{ ubuntutu2004cis_root_pw }}"
+  when:
+      - ubuntu2004cis_rule_1_4_4

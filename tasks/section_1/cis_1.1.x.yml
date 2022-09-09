@@ -130,7 +130,7 @@
       src: tmpfs
       state: mounted
       fstype: tmpfs
-      opts: "{{ ubtu20cis_tmp_fstab_options }}"
+      opts: "{{ ubuntu2004cis_tmp_fstab_options }}"
 
   when:
     - ubuntu2004cis_rule_1_1_2
@@ -144,7 +144,7 @@
       src: tmpfs
       state: remounted
       fstype: tmpfs
-      opts: "{{ ubtu20cis_tmp_fstab_options }}"
+      opts: "{{ ubuntu2004cis_tmp_fstab_options }}"
   when: 
     - ubuntu2004cis_rule_1_1_3
     - ubuntu2004cis_rule_1_1_4
@@ -156,7 +156,7 @@
       src: tmpfs
       state: mounted
       fstype: tmpfs
-      opts: "{{ ubtu20cis_dev_shm_fstab_options }}"
+      opts: "{{ ubuntu2004cis_dev_shm_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_6
 
@@ -169,7 +169,7 @@
       src: tmpfs
       state: remounted
       fstype: tmpfs
-      opts: "{{ ubtu20cis_dev_shm_fstab_options }}"
+      opts: "{{ ubuntu2004cis_dev_shm_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_7
     - ubuntu2004cis_rule_1_1_8
@@ -244,7 +244,7 @@
       path: /var/tmp
       state: remounted
       fstype: xfs
-      opts: "{{ ubtu20cis_dev_xvdf2_fstab_options }}"
+      opts: "{{ ubuntu2004cis_dev_xvdf2_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_12
     - ubuntu2004cis_rule_1_1_13
@@ -345,9 +345,9 @@
 
 - name: "AUTOMATED | 1.1.22 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null | xargs -I '{}' chmod a+t '{}'
-  failed_when: ubtu20cis_1_1_22_status.rc>0
+  failed_when: ubuntu2004cis_1_1_22_status.rc>0
   check_mode: false
-  register: ubtu20cis_1_1_22_status
+  register: ubuntu2004cis_1_1_22_status
   when:
       - ubuntu2004cis_rule_1_1_22
 

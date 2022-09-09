@@ -1,0 +1,76 @@
+---
+- name: "1.8.1 | Ensure GNOME Display Manager is removed (Manual)"
+  apt:
+    name: gdm
+    state: absent 
+    purge: yes
+  when:
+    - ubuntu2004cis_rule_1_8_1
+  tags:
+    - section1
+    - rule_1_8_1
+    - level_1
+
+- name: "AUTOMATED | 1.8.2 | PATCH | Ensure GDM login banner is configured"
+  lineinfile:
+      path: /etc/gdm3/greeter.dconf-defaults
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      insertafter: "{{ item.insertafter }}"
+      create: yes
+      owner: root
+      group: root
+      mode: 0644
+  notify: reload gdm
+  with_items:
+      - { regexp: '\[org\/gnome\/login-screen\]', line: '[org/gnome/login-screen]', insertafter: EOF }
+      - { regexp: 'banner-message-enable', line: 'banner-message-enable=true', insertafter: '\[org\/gnome\/login-screen\]'}
+      - { regexp: 'banner-message-text', line: "banner-message-text='{{ ubuntu2004cis_warning_banner | regex_replace('\n', ' ') | trim }}'", insertafter: 'banner-message-enable' }
+  when:
+      - ubuntu2004cis_rule_1_8_2
+      - ubuntu2004cis_desktop_required
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.8.2
+      - gnome
+
+
+- name: "AUTOMATED | 1.8.3 | PATCH | Ensure disable-user-list is enabled"
+  lineinfile:
+      path: /etc/gdm3/greeter.dconf-defaul
+      regexp: '^disable-user-list='
+      line: 'disable-user-list=true'
+      insertafter: 'banner-message-text='
+      create: yes
+      owner: root
+      group: root
+      mode: 0644
+  notify: reload gdm
+  when:
+      - ubuntu2004cis_rule_1_8_3
+      - ubuntu2004cis_desktop_required
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.8.3
+      - gdm3
+
+- name: "AUTOMATED | 1.8.4 | PATCH | Ensure XDCMP is not enabled"
+  lineinfile:
+      path: /etc/gdm3/custom.conf
+      regexp: '^Enable.*=.*true'
+      state: absent
+  when:
+      - ubuntu2004cis_rule_1_8_4
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.8.4
+      - xdcmp
