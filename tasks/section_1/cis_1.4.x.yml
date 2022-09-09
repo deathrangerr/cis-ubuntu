@@ -1,4 +1,5 @@
 ---
+
 - name: "AUTOMATED | 1.4.1 | PATCH | Ensure permissions on bootloader config are not overridden"
   block:
       - name: "AUTOMATED | 1.4.1 | PATCH | Ensure permissions on bootloader config are not overridden | Change chmod setting"
@@ -14,6 +15,14 @@
             line: if [ "x${grub_cfg}" != "x" ]; then
   when:
       - ubuntu2004cis_rule_1_4_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.4.1
+      - grub
+
 
 - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - generate password"
   block:
@@ -28,7 +37,6 @@
         executable: /bin/bash
     when:
         - ubuntu2004cis_set_boot_pass
-        - ubuntu2004cis_rule_1_4_2
 
   - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - generate config"
     copy:
@@ -40,7 +48,6 @@
     notify: generate new grub config
     when:
         - ubuntu2004cis_set_boot_pass and grub_pass is defined and grub_pass.stdout is defined and grub_pass.stdout | length >0
-        - ubuntu2004cis_rule_1_4_2
 
   - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - disable password for system boot"
     replace:
@@ -50,8 +57,17 @@
     notify: generate new grub config
     when:
         - ubuntu2004cis_set_boot_pass
-        - ubuntu2004cis_rule_1_4_2
         - ubuntu2004cis_rule_1_4_2_disable_password
+  when:
+      - ubuntu2004cis_rule_1_4_2
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.4.2
+      - grub
+
 
 - name: "AUTOMATED | 1.4.3 | PATCH | Ensure permissions on bootloader config are configured"
   block:
@@ -72,9 +88,25 @@
   when:
       - ubuntu2004cis_rule_1_4_3
 
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.4.4
+      - passwd
+
+
 - name: "AUTOMATED | 1.4.4 | PATCH | Ensure authentication required for single user mode"
   user:
       name: root
-      password: "{{ ubuntutu2004cis_root_pw }}"
+      password: "{{ ubuntu2004cis_root_pw }}"
   when:
       - ubuntu2004cis_rule_1_4_4
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.4.4
+      - passwd

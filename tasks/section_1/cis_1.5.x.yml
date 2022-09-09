@@ -1,4 +1,5 @@
 ---
+
 - name: "MANUAL | 1.5.1 | AUDIT | Ensure XD/NX support is enabled"
   shell: |
       set -o pipefail;
@@ -13,6 +14,7 @@
       - scored
       - patch
       - rule_1.5.1
+
 
 - name: "AUTOMATED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   block:
@@ -36,6 +38,7 @@
       - rule_1.5.2
       - aslr
 
+
 - name: "AUTOMATED | 1.5.3 | PATCH | Ensure prelink is not installed"
   block:
   - name: "AUTOMATED | 1.5.3 | PATCH | Ensure prelink is not installed | Restore binaries to normal"
@@ -57,60 +60,59 @@
       - rule_1.5.3
       - prelink
 
+
 - name: "1.5.4 | Ensure core dumps are restricted (Automated)"
   block:
 
     - name: "1.5.4 | Ensure core dumps are restricted (Automated) | limit for user groups"
       lineinfile:
-        path: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_path }}"
-        line: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_line }}"
-        regexp: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_regexp }}"
-        state: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_state }}"
-        owner: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_owner }}"
-        group: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_group }}"
-        mode: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_security_limit_mode }}"
+        path: /etc/security/limits.conf
+        line: '* hard core 0'
+        regexp: .*\*.*hard.*core.*[0-9]
+        state:  present
+        owner: root
+        group: root
+        mode: '0544'
         backup: yes
 
     - name: "1.5.4 | Ensure core dumps are restricted (Automated) | set kernel parameter fs.suid_dumpable"
       sysctl:
-        name: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_kernel_parameter_name }}"
-        value: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_kernel_parameter_value }}"
-        state: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_kernel_parameter_state }}"
-        reload: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_kernel_parameter_reload }}"
-        sysctl_set: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_kernel_parameter_sysctl_set }}"
+        name: fs.suid_dumpable
+        value: '0'
+        state: present
+        reload: yes
+        sysctl_set: yes
 
     - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump package"
       apt:
-        name: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_package_name }}"
-        state: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_package_state }}"
+        name: systemd-coredump
+        state: present
 
     - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump conf file Storage=none modification"
       ini_file:
-        path: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_path }}"
-        section: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_section }}"
-        option: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_storage_option }}"
-        value: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_storage_value }}"
-        owner: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_owner }}"
-        group: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_group }}"
-        mode: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_mode }}"
-        state: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_state }}"
-        no_extra_spaces: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_no_extra_spaces }}"
+        path: /etc/systemd/coredump.conf
+        section: Coredump
+        option: Storage
+        value: none
+        owner: root
+        group: root
+        mode: '0544'
+        state: present
+        no_extra_spaces: yes
 
     - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump conf file ProcessSizeMax=0 modification"
       ini_file:
-        path: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_path }}"
-        section: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_section }}"
-        option: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_processsizemax_option }}"
-        value: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_processsizemax_value }}"
-        owner: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_owner }}"
-        group: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_group }}"
-        mode: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_mode }}"
-        state: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_state }}"
-        no_extra_spaces: "{{ ubuntu_2004_cis_section1_rule_1_5_4_params_core_dump_service_conf_no_extra_spaces }}"
-
+        path: /etc/systemd/coredump.conf
+        section: Coredump
+        option: ProcessSizeMax
+        value: '0'
+        owner: root
+        group: root
+        mode: '0544'
+        state: present
+        no_extra_spaces: yes
   when:
     - ubuntu2004cis_rule_1_5_4
-
   tags:
     - section1
     - rule_1_5_4

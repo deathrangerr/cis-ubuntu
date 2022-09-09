@@ -1,4 +1,5 @@
 ---
+
 - name: "1.3.1 | PATCH | Ensure AIDE is installed"
   block:
       - name: "1.3.1 | PATCH | Ensure AIDE is installed"
@@ -17,10 +18,17 @@
         async: 45
         poll: 0
         when: not ansible_check_mode #magic variable so that it doesnt make any changes to remote system
-
   when:
       - ubuntu2004cis_config_aide
       - ubuntu2004cis_rule_1_3_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.3.1
+      - aide
+
 
 - name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
   cron:
@@ -36,3 +44,10 @@
   when:
       - ubuntu2004cis_rule_1_3_2
       - ubuntu2004cis_config_aide
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.3.2
+      - cron

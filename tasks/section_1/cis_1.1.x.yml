@@ -20,6 +20,7 @@
   when:
     - ubuntu2004cis_rule_1_1_1_1
 
+
 - name: "Automated | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
   block:
   - name: "Automated | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
@@ -36,6 +37,7 @@
         state: absent
   when:
       - ubuntu2004cis_rule_1_1_1_2
+
 
 - name: "Automated | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled"
   block:
@@ -54,6 +56,7 @@
   when:
       - ubuntu2004cis_rule_1_1_1_3
 
+
 - name: "Automated | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
   block:
   - name: "Automated | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
@@ -71,6 +74,7 @@
   when:
       - ubuntu2004cis_rule_1_1_1_4
 
+
 - name: "Automated | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   block:
   - name: "Automated | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
@@ -87,6 +91,7 @@
         state: absent
   when:
       - ubuntu2004cis_rule_1_1_1_5
+
 
 - name: "Manual | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   block:
@@ -135,6 +140,7 @@
   when:
     - ubuntu2004cis_rule_1_1_2
 
+
 - name: |
     "AUTOMATED | 1.1.3 | PATCH | Ensure nodev option set on /tmp partition"
     "AUTOMATED | 1.1.4 | PATCH | Ensure nosuid option set on /tmp partition"
@@ -150,6 +156,7 @@
     - ubuntu2004cis_rule_1_1_4
     - ubuntu2004cis_rule_1_1_5
 
+
 - name: "AUTOMATED | 1.1.6 | PATCH | Ensure /dev/shm is configured"
   mount:
       name: /dev/shm
@@ -159,6 +166,7 @@
       opts: "{{ ubuntu2004cis_dev_shm_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_6
+
 
 - name: |
     "AUTOMATED | 1.1.7 | PATCH | Ensure nodev option set on /dev/shm partition"
@@ -216,6 +224,7 @@
   when:
     - ubuntu2004cis_rule_1_1_10
 
+
 - name: AUTOMATED | 1.1.11 | PATCH | Ensure /var/tmp is mounted 
   block:
     - name: format the xfs filesystem
@@ -235,6 +244,7 @@
   when:
     - ubuntu2004cis_rule_1_1_11
 
+
 - name: |
     "AUTOMATED | 1.1.12 | PATCH | Ensure nodev option set on /dev/shm partition"
     "AUTOMATED | 1.1.13 | PATCH | Ensure nosuid option set on /dev/shm partition"
@@ -249,6 +259,7 @@
     - ubuntu2004cis_rule_1_1_12
     - ubuntu2004cis_rule_1_1_13
     - ubuntu2004cis_rule_1_1_14
+
 
 - name: AUTOMATED | 1.1.15 | PATCH | Ensure /var/log is mounted 
   block:
@@ -268,6 +279,7 @@
    
   when:
     - ubuntu2004cis_rule_1_1_15
+
 
 - name: AUTOMATED | 1.1.16 | PATCH | Ensure /var/log/audit is mounted 
   block:
@@ -331,17 +343,20 @@
   when:
       - ubuntu2004cis_rule_1_1_19
 
+
 - name: "MANUAL | 1.1.20 | AUDIT | Ensure nosuid option set on removable media partitions"
   debug:
       msg: "Warning!!!! Not relevant control"
   when:
       - ubuntu2004cis_rule_1_1_20
 
+
 - name: "MANUAL | 1.1.21 | AUDIT | Ensure noexec option set on removable media partitions"
   debug:
       msg: "Warning!!!! Not relevant control"
   when:
       - ubuntu2004cis_rule_1_1_21
+
 
 - name: "AUTOMATED | 1.1.22 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null | xargs -I '{}' chmod a+t '{}'
@@ -350,6 +365,7 @@
   register: ubuntu2004cis_1_1_22_status
   when:
       - ubuntu2004cis_rule_1_1_22
+
 
 - name: "AUTOMATED | 1.1.23 | PATCH | Disable Automounting"
   service:
@@ -360,6 +376,7 @@
       - ubuntu2004cis_rule_1_1_23
       - ubuntu2004cis_autofs_service_status.stdout == "loaded"
       - not ubuntu2004cis_allow_autofs
+
 
 - name: "SCORED | 1.1.24 | PATCH | Remove usb-storage module"
   modprobe:

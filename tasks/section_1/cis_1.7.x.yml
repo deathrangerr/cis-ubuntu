@@ -1,4 +1,5 @@
 ---
+
 - name: "AUTOMATED | 1.7.1 | PATCH | Ensure message of the day is configured properly"
   template:
       src: etc/motd.j2
@@ -12,6 +13,7 @@
       - patch
       - rule_1.7.1
       - motd
+
 
 - name: "AUTOMATED | 1.7.2 | PATCH | Ensure local login warning banner is configured properly"
   template:
@@ -27,6 +29,7 @@
       - rule_1.7.2
       - banner
 
+
 - name: "AUTOMATED | 1.7.3 | PATCH | Ensure remote login warning banner is configured properly"
   template:
       src: etc/issue.net.j2
@@ -40,6 +43,7 @@
       - patch
       - rule_1.7.3
       - banner
+
 
 - name: "AUTOMATED | 1.7.4 | PATCH | Ensure permissions on /etc/motd are configured"
   file:
@@ -58,6 +62,7 @@
       - permissions
       - motd
 
+
 - name: "AUTOMATED | 1.7.5 | PATCH | Ensure permissions on /etc/issue are configured"
   file:
       path: /etc/issue
@@ -74,6 +79,7 @@
       - rule_1.7.5
       - permissions
       - banner
+
 
 - name: "AUTOMATED | 1.7.6 | PATCH | Ensure permissions on /etc/issue.net are configured"
   file:
