@@ -1,10 +1,10 @@
 ---
 
 galaxy_info:
-    author: "Amol Goel"
+    author: "Amol Goel, Mani Deepu"
     description: "Apply the Ubuntu 20 CIS benmarks"
     company: "Credit Saison"
-    license: MIT
+    license: 
     role_name: ubuntu20_cis
     min_ansible_version: 2.9.0
     platforms:

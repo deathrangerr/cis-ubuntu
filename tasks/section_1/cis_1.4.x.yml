@@ -49,6 +49,7 @@
     when:
         - ubuntu2004cis_set_boot_pass and grub_pass is defined and grub_pass.stdout is defined and grub_pass.stdout | length >0
 
+
   - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set - disable password for system boot"
     replace:
         path: /etc/grub.d/10_linux

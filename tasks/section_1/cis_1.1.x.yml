@@ -186,6 +186,7 @@
 
 - name: AUTOMATED | 1.1.10 | PATCH | Ensure /var is mounted 
   block:
+
     - name: Create 4 equal partition  
       parted:
         device: /dev/xvdf
@@ -193,11 +194,11 @@
         label: gpt
         flags: [ lvm ]
         name: "disk{{ (item | int | abs) + 1 }}"
-        part_start: "{{ (item | int | abs) * 20 }}%"
+        part_start: "{{ (item | int | abs) * 20 }}%" # make percentage as variables
         part_end: "{{ (item | int | abs) * 20 + 20 }}%"
         unit: "%"
         state: present
-      with_sequence: start=0 count=5
+      with_sequence: start=0 count={{ ubuntu2004_partition_count }}
 
     - shell: mv -f /var /var1
 
@@ -207,13 +208,13 @@
         state: directory
         mode: '0755'
 
-    - name: format the xfs filesystem
+    - name: format the ext4 filesystem
       filesystem:
-        fstype: xfs
+        fstype: ext4
         dev: /dev/xvdf1
 
     - mount:
-        fstype: xfs
+        fstype: ext4
         src: /dev/xvdf1
         path: /var
         state: mounted
@@ -223,17 +224,18 @@
 
   when:
     - ubuntu2004cis_rule_1_1_10
-
+  tags:
+    - rule_1_1_10
 
 - name: AUTOMATED | 1.1.11 | PATCH | Ensure /var/tmp is mounted 
   block:
-    - name: format the xfs filesystem
+    - name: format the ext4 filesystem
       filesystem:
-        fstype: xfs
+        fstype: ext4
         dev: /dev/xvdf2
 
     - mount:
-        fstype: xfs
+        fstype: ext4
         src: /dev/xvdf2
         path: /var/tmp
         state: mounted
@@ -253,7 +255,7 @@
       src: /dev/xvdf2
       path: /var/tmp
       state: remounted
-      fstype: xfs
+      fstype: ext4
       opts: "{{ ubuntu2004cis_dev_xvdf2_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_12
@@ -263,13 +265,13 @@
 
 - name: AUTOMATED | 1.1.15 | PATCH | Ensure /var/log is mounted 
   block:
-    - name: format the xfs filesystem
+    - name: format the ext4 filesystem
       filesystem:
-        fstype: xfs
+        fstype: ext4
         dev: /dev/xvdf3
 
     - mount:
-        fstype: xfs
+        fstype: ext4
         src: /dev/xvdf3
         path: /var/log
         state: mounted
@@ -283,13 +285,13 @@
 
 - name: AUTOMATED | 1.1.16 | PATCH | Ensure /var/log/audit is mounted 
   block:
-    - name: format the xfs filesystem
+    - name: format the ext4 filesystem
       filesystem:
-        fstype: xfs
+        fstype: ext4
         dev: /dev/xvdf4
 
     - mount:
-        fstype: xfs
+        fstype: ext4
         src: /dev/xvdf4
         path: /var/log/audit
         state: mounted
@@ -336,6 +338,7 @@
 #       - item.mount == "/home"
 #   with_items:
 #       - "{{ ansible_mounts }}"
+
 
 - name: "MANUAL | 1.1.19 | AUDIT | Ensure nodev option set on removable media partitions"
   debug:
@@ -384,13 +387,3 @@
       state: absent
   when:
       - ubuntu2004cis_rule_1_1_24
-
-
-
-  
-
-
-
-
-
-

@@ -1,0 +1,430 @@
+---
+
+- name: "AUTOMATED | 2.1.1.1 | PATCH | Ensure time synchronization is in use"
+  apt:
+      name: "{{ ubtuntu2004cis_time_sync_tool }}"
+      state: present
+  when:
+      - ubuntu2004cis_rule_2_1_1_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.1.1
+      - chrony
+
+
+- name: "AUTOMATED | 2.1.1.2 | PATCH | Ensure systemd-timesyncd is configured"
+  block:
+      - name: "AUTOMATED | 2.1.1.2 | PATCH | Ensure systemd-timesyncd is configured | Remove ntp and chrony"
+        apt:
+            name: ['ntp', 'chrony']
+            state: absent
+
+      - name: "AUTOMATED | 2.1.1.2 | PATCH | Ensure systemd-timesyncd is configured | Set configuration for systemd-timesyncd"
+        lineinfile:
+            path: /etc/systemd/timesyncd.conf
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+            insertafter: "{{ item.insertafter }}"
+        with_items:
+            - { regexp: '^\[Time\]', line: '[Time]', insertafter: EOF }
+            - { regexp: '^#NTP|^NTP', line: 'NTP={{ ubuntu2004cis_ntp_server_list }}', insertafter: '\[Time\]' }
+            - { regexp: '^#FallbackNTP|^FallbackNTP', line: 'FallbackNTP={{ ubuntu2004cis_ntp_fallback_server_list }}', insertafter: '\[Time\]' }
+            - { regexp: '^#RootDistanceMaxSec|^RootDistanceMaxSec', line: 'RootDistanceMaxSec=1', insertafter: '\[Time\]' }
+
+      - name: "AUTOMATED | 2.1.1.2 | PATCH | Ensure systemd-timesyncd is configured | Start and enable the systemd-timesyncd service"
+        systemd:
+            name: systemd-timesyncd.service
+            state: started
+            enabled: yes
+            masked: no
+
+      - name: "AUTOMATED | 2.1.1.2 | AUDIT | Ensure systemd-timesyncd is configured | Capture NTP state"
+        shell: "timedatectl status | grep NTP | cut -d':' -f2 | sed 's/^[ \\t]*//;s/[ \\t]*$//'"
+        changed_when: false
+        failed_when: false
+        register: ubuntu2004cis_2_1_1_2_ntp_status
+
+      - name: "AUTOMATED | 2.1.1.2 | PATCH | Ensure systemd-timesyncd is configured | Set timedatectl to ntp"
+        command: timedatectl set-ntp true
+        changed_when: true
+        when: "'inactive' in ubuntu2004cis_2_1_1_2_ntp_status.stdout"
+  when:
+      - ubuntu2004cis_rule_2_1_1_2
+      - ubtuntu2004cis_time_sync_tool == "systemd-timesyncd"
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - manual
+      - patch
+      - rule_2.1.1.2
+      - systemd-timesyncd
+
+
+- name: "AUTOMATED | 2.1.1.3 | PATCH | Ensure chrony is configured"
+  block:
+      - name: "AUTOMATED | 2.1.1.3 | PATCH | Ensure chrony is configured | Remove ntp"
+        apt:
+            name: ntp
+            state: absent
+
+      - name: "AUTOMATED | 2.1.1.3 | PATCH | Ensure chrony is configured | Disable/Mask systemd-timesyncd"
+        systemd:
+            name: systemd-timesyncd
+            state: stopped
+            enabled: no
+            masked: yes
+
+      - name: "AUTOMATED | 2.1.1.3 | AUDIT | Ensure chrony is configured | Check for chrony user"
+        shell: grep {{ ubuntu2004cis_chrony_user }} /etc/passwd
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: ubuntu2004cis_2_1_1_3_chrony_user_status
+
+      - name: "AUTOMATED | 2.1.1.3 | PATCH | Ensure chrony is configured | Set chrony.conf file"
+        template:
+            src: chrony.conf.j2
+            dest: /etc/chrony/chrony.conf
+            owner: root
+            group: root
+            mode: 0644
+
+      - name: "AUTOMATED | 2.1.1.3 | PATCH | Ensure chrony is configured | Create chrony user"
+        user:
+            name: "{{ ubuntu2004cis_chrony_user }}"
+            shell: /usr/sbin/nologin
+            system: true
+        when: ubuntu2004cis_2_1_1_3_chrony_user_status.stdout | length > 0
+
+      - name: "AUTOMATED | 2.2.1.3 | PATCH | Ensure chrony is configured | Set option to use chrony user"
+        lineinfile:
+            path: /etc/default/chrony
+            regexp: '^DAEMON_OPTS'
+            line: 'DAEMON_OPTS="-u _chrony"'
+  when:
+      - ubuntu2004cis_rule_2_1_1_3
+      - ubuntu2004cis_chrony_user == "_chrony"
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.1.3
+      - chrony
+
+
+- name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured"
+  block:
+      - name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured | Remove chrony"
+        apt:
+            name: chrony
+            state: absent
+
+      - name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured | Disable/Mask systemd-timesyncd"
+        systemd:
+            name: systemd-timesyncd
+            state: stopped
+            enabled: no
+            masked: yes
+
+      - name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured | Set ntp.conf settings"
+        template:
+            src: ntp.conf.j2
+            dest: /etc/ntp.conf
+            owner: root
+            group: root
+            mode: 0644
+
+      - name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured | Modify sysconfig/ntpd"
+        lineinfile:
+            path: /etc/sysconfig/ntpd
+            regexp: "{{ item.regexp }}"
+            line: "{{ item. line }}"
+            create: yes
+        with_items:
+            - { regexp: '^OPTIONS', line: 'OPTIONS="-u ntp:ntp"'}
+            - { regexp: '^NTPD_OPTIONS', line: 'NTPD_OPTIONS="-u ntp:ntp"' }
+
+      - name: "AUTOMATED | 2.1.1.4 | PATCH | Ensure ntp is configured | Modify /etc/init.d/ntp"
+        lineinfile:
+            path: /etc/init.d/ntp
+            regexp: '^RUNAUSER'
+            line: 'RUNAUSER=ntp'
+  when:
+      - ubuntu2004cis_rule_2_1_1_4
+      - ubtuntu2004cis_time_sync_tool  == "ntp"
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.1.4
+      - ntp
+
+
+- name: "AUTOMATED | 2.1.2 | PATCH | Ensure X Window System is not installed"
+  apt:
+      name: xserver-xorg*
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_2
+      - not ubuntu2004cis_desktop_required
+  tags:
+      - level1-server
+      - automated
+      - patch
+      - rule_2.1.2
+      - xwindows
+
+
+- name: "AUTOMATED | 2.1.3 | PATCH | Ensure Avahi Server is not installed"
+  apt:
+    name: avahi-daemon
+    state: absent
+    purge: yes
+  when:
+      - ubuntu2004cis_rule_2_1_3
+      - not ubuntu2004cis_avahi_server
+      - ubuntu2004cis_disruption_high
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.3
+      - avahi
+      - services
+
+- name: "Automated | 2.1.4 | PATCH | Ensure CUPS is not installed"
+  apt:
+      name: cups
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_4
+      - not ubuntu2004cis_cups_server
+  tags:
+      - level1-server
+      - level2-workstation
+      - automated
+      - patch
+      - rule_2.1.4
+      - cups
+      - services
+
+- name: "AUTOMATED | 2.1.5 | PATCH | Ensure DHCP Server is not installed"
+  apt:
+      name: isc-dhcp-server
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_5
+      - not ubuntu2004cis_dhcp_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.5
+      - dhcp
+      - services
+
+- name: "AUTOMATED | 2.1.6 | PATCH | Ensure LDAP server is not installed"
+  apt:
+      name: slapd
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_6
+      - not ubuntu2004cis_ldap_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.6
+      - ldap
+      - services
+
+- name: "AUTOMATED | 2.1.7 | PATCH | Ensure NFS is not installed"
+  apt:
+      name: nfs-kernel-server
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_7
+      - not ubuntu2004cis_nfs_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.7
+      - nfs
+      - rpc
+      - services
+
+- name: "AUTOMATED | 2.1.8 | PATCH | Ensure DNS Server is not installed"
+  apt:
+      name: bind9
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_8
+      - not ubuntu2004cis_dns_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.8
+      - dns
+      - service
+
+- name: "AUTOMATED | 2.1.9 | PATCH | Ensure FTP Server is not installed"
+  apt:
+      name: vsftpd
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_9
+      - not ubuntu2004cis_vsftpd_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.9
+      - ftp
+      - service
+
+- name: "AUTOMATED | 2.1.10 | PATCH | Ensure HTTP server is not installed"
+  apt:
+      name: apache2
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_10
+      - not ubuntu2004cis_httpd_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.10
+      - httpd
+      - service
+
+- name: "AUTOMATED | 2.1.11 | PATCH | Ensure IMAP and POP3 server are not installed"
+  apt:
+      name: ['dovecot-imapd', 'dovecot-pop3d']
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_11
+      - not ubuntu2004cis_dovecot_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.11
+      - dovecot
+      - service
+
+- name: "AUTOMATED | 2.1.12 | PATCH | Ensure Samba is not installed"
+  apt:
+      name: samba
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_12
+      - not ubuntu2004cis_smb_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.12
+      - samba
+      - service
+
+- name: "AUTOMATED | 2.1.13 | PATCH | Ensure HTTP Proxy Server is not installed"
+  apt:
+      name: squid
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_13
+      - not ubuntu2004cis_squid_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.13
+      - http_proxy
+      - service
+
+- name: "AUTOMATED | 2.1.14 | PATCH | Ensure SNMP Server is not installed"
+  apt:
+      name: snmpd
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_14
+      - not ubuntu2004cis_snmp_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.14
+      - snmp
+      - service
+
+- name: "AUTOMATED | 2.1.15 | PATCH | Ensure mail transfer agent is configured for local-only mode"
+  block:
+    - name: 2.1.15 Ensure mail transfer agent is configured for local-only mode
+      stat:
+        path: /etc/postfix/main.cf
+      register: postfix
+    - name: 2.1.15 Ensure mail transfer agent is configured for local-only mode
+      lineinfile:
+        dest: /etc/postfix/main.cf
+        regexp: "^(#)?inet_interfaces"
+        line: "inet_interfaces = localhost"
+      when: postfix.stat.exists
+  when:
+      - ubuntu2004cis_rule_2_1_15
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - scored
+      - patch
+      - rule_2.1.15
+      - postfix
+
+- name: "AUTOMATED | 2.1.16 | PATCH | Ensure rsync service is not installed"
+  apt:
+      name: rsync
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_16
+      - not ubuntu2004cis_rsync_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_2.1.16
+      - rsync
+
+- name: "AUTOMATED | 2.1.17 | PATCH | Ensure NIS Server is not installed"
+  apt:
+      name: nis
+      state: absent
+  when:
+      - ubuntu2004cis_rule_2_1_17
+      - not ubuntu2004cis_nis_server
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - rule_2.1.17
+      - nis
+      - service
