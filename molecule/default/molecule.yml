@@ -2,34 +2,39 @@
 dependency:
   name: galaxy
 driver:
-  name: vagrant
-  provider:
-    name: virtualbox
-  options:
-    memory: 2048
-    cpus: 2
+  name: docker
 lint: |
-    yamllint .
-    ansible-lint
-    flake8
+  set -e
+  ansible-lint
 platforms:
-  - name: ${DISTRO:-ubuntu2004}
-    box: "darkwizard242/ansible${DISTRO:-ubuntu2004}"
+  - name: instance
+    image: florianutz/docker-systemd:20.04
+    command: /lib/systemd/systemd
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+#    command: /sbin/init
 provisioner:
   name: ansible
-  log: true
-scenario:
-  name: default
-  test_sequence:
-    - lint
-    - destroy
-    - syntax
-    - create
-    - converge
-    # - idempotence
-    - verify
-    - destroy
+  lint:
+    name: ansible-lint
+    enabled: true
+  config_options:
+    defaults:
+      bin_ansible_callbacks: True
+      callbacks_enabled: profile_tasks,timer
+      fact_caching: jsonfile
+      fact_caching_connection: ./cache
+      poll_interval: 3
+      forks: 100
+      conditional_bare_variables: false
+    connection:
+      pipelining: true
+#scenario:
+#  name: default
 verifier:
-  name: testinfra
-  options:
-    verbose: true
+  name: ansible
