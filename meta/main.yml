@@ -11,18 +11,6 @@ galaxy_info:
         - name: Ubuntu
           versions:
               - focal
-    galaxy_tags:
-        - system
-        - security
-        - cis
-        - hardening
-        - benchmark
-        - compliance
-        - complianceascode
-        - ubuntu20
-collections:
-    - community.general
-    - community.crypto
-    - ansible.posix
-
+    galaxy_tags: []
+collections: []
 dependencies: []
