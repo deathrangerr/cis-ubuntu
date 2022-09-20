@@ -71,11 +71,176 @@ ubuntu2004cis_rule_1_8_4: false
 ubuntu2004cis_rule_1_9: false
 
 
+
+#---------------------------------------------- Section 2 Services --------------------------------------------------#
+ubuntu2004cis_section2: true
+
+ubuntu2004cis_rule_2_1_1_1: false
+ubuntu2004cis_rule_2_1_1_2: false
+ubuntu2004cis_rule_2_1_1_3: false
+ubuntu2004cis_rule_2_1_1_4: false
+ubuntu2004cis_rule_2_1_2: true
+ubuntu2004cis_rule_2_1_3: true
+ubuntu2004cis_rule_2_1_4: true
+ubuntu2004cis_rule_2_1_5: true
+ubuntu2004cis_rule_2_1_6: true
+ubuntu2004cis_rule_2_1_7: true
+ubuntu2004cis_rule_2_1_8: true
+ubuntu2004cis_rule_2_1_9: true
+ubuntu2004cis_rule_2_1_10: false
+ubuntu2004cis_rule_2_1_11: true
+ubuntu2004cis_rule_2_1_12: true
+ubuntu2004cis_rule_2_1_13: false
+ubuntu2004cis_rule_2_1_14: true
+ubuntu2004cis_rule_2_1_15: true
+ubuntu2004cis_rule_2_1_16: true
+ubuntu2004cis_rule_2_1_17: true
+
+ubuntu2004cis_rule_2_2_1: true
+ubuntu2004cis_rule_2_2_2: true
+ubuntu2004cis_rule_2_2_3: true
+ubuntu2004cis_rule_2_2_4: false
+ubuntu2004cis_rule_2_2_5: true
+ubuntu2004cis_rule_2_2_6: true
+
+ubuntu2004cis_rule_2_3: false
+
+
+
+#---------------------------------------------- Section 3 Network Configuration --------------------------------------------------#
+ubuntu2004cis_section3: true
+
+ubuntu2004cis_rule_3_2_1: true
+ubuntu2004cis_rule_3_2_2: false
+
+ubuntu2004cis_rule_3_3_1: true
+ubuntu2004cis_rule_3_3_2: true
+ubuntu2004cis_rule_3_3_3: true
+ubuntu2004cis_rule_3_3_4: true
+ubuntu2004cis_rule_3_3_5: true
+ubuntu2004cis_rule_3_3_6: true
+ubuntu2004cis_rule_3_3_7: true
+ubuntu2004cis_rule_3_3_8: true
+ubuntu2004cis_rule_3_3_9: true
+
+#---------------------------------------------- Section 4 Logging and Auditing --------------------------------------------------#
+ubuntu2004cis_section4: true
+
+ubuntu2004cis_rule_4_2_1_1: true
+ubuntu2004cis_rule_4_2_1_2: true
+ubuntu2004cis_rule_4_2_1_3: true
+ubuntu2004cis_rule_4_2_1_4: true
+ubuntu2004cis_rule_4_2_1_5: true
+ubuntu2004cis_rule_4_2_1_6: true
+ubuntu2004cis_rule_4_2_2_1: true
+ubuntu2004cis_rule_4_2_2_2: true
+ubuntu2004cis_rule_4_2_2_3: true
+ubuntu2004cis_rule_4_2_3: true
+ubuntu2004cis_rule_4_3: true
+ubuntu2004cis_rule_4_4: true
+
+#---------------------------------------------- Section 5 Access, Authentication, and Authorization --------------------------------------------------#
+ubuntu2004cis_section5: true
+
+ubuntu2004cis_rule_5_1_1: true
+ubuntu2004cis_rule_5_1_2: true
+ubuntu2004cis_rule_5_1_3: true
+ubuntu2004cis_rule_5_1_4: true
+ubuntu2004cis_rule_5_1_5: true
+ubuntu2004cis_rule_5_1_6: true
+ubuntu2004cis_rule_5_1_7: true
+ubuntu2004cis_rule_5_1_8: true
+ubuntu2004cis_rule_5_1_9: true
+
+ubuntu2004cis_rule_5_2_1: true
+ubuntu2004cis_rule_5_2_2: true
+ubuntu2004cis_rule_5_2_3: true
+
+ubuntu2004cis_rule_5_3_1: true
+ubuntu2004cis_rule_5_3_2: true
+ubuntu2004cis_rule_5_3_3: true
+ubuntu2004cis_rule_5_3_4: true
+ubuntu2004cis_rule_5_3_5: true
+ubuntu2004cis_rule_5_3_6: true
+ubuntu2004cis_rule_5_3_7: true
+ubuntu2004cis_rule_5_3_8: true
+ubuntu2004cis_rule_5_3_9: true
+ubuntu2004cis_rule_5_3_10: true
+ubuntu2004cis_rule_5_3_11: true
+ubuntu2004cis_rule_5_3_12: true
+ubuntu2004cis_rule_5_3_13: true
+ubuntu2004cis_rule_5_3_14: true
+ubuntu2004cis_rule_5_3_15: true
+ubuntu2004cis_rule_5_3_16: true
+ubuntu2004cis_rule_5_3_17: true
+ubuntu2004cis_rule_5_3_18: true
+ubuntu2004cis_rule_5_3_19: true
+ubuntu2004cis_rule_5_3_20: true
+ubuntu2004cis_rule_5_3_21: true
+ubuntu2004cis_rule_5_3_22: true
+
+ubuntu2004cis_rule_5_4_1: true
+ubuntu2004cis_rule_5_4_2: true
+ubuntu2004cis_rule_5_4_3: true
+ubuntu2004cis_rule_5_4_4: true
+
+ubuntu2004cis_rule_5_5_1_1: true
+ubuntu2004cis_rule_5_5_1_2: true
+ubuntu2004cis_rule_5_5_1_3: true
+ubuntu2004cis_rule_5_5_1_4: true
+ubuntu2004cis_rule_5_5_1_5: true
+ubuntu2004cis_rule_5_5_2: true
+ubuntu2004cis_rule_5_5_3: false
+ubuntu2004cis_rule_5_5_4: true
+ubuntu2004cis_rule_5_5_5: true
+
+ubuntu2004cis_rule_5_6: true
+ubuntu2004cis_rule_5_7: false
+
+
+#---------------------------------------------- Section 6 system maintenance --------------------------------------------------#
+ubuntu2004cis_section6: true
+
+ubuntu2004cis_rule_6_1_1: true
+ubuntu2004cis_rule_6_1_2: true
+ubuntu2004cis_rule_6_1_3: true
+ubuntu2004cis_rule_6_1_4: true
+ubuntu2004cis_rule_6_1_5: true
+ubuntu2004cis_rule_6_1_6: true
+ubuntu2004cis_rule_6_1_7: true
+ubuntu2004cis_rule_6_1_8: true
+ubuntu2004cis_rule_6_1_9: true
+ubuntu2004cis_rule_6_1_10: true
+ubuntu2004cis_rule_6_1_11: true
+ubuntu2004cis_rule_6_1_12: true
+ubuntu2004cis_rule_6_1_13: true
+ubuntu2004cis_rule_6_1_14: true
+
+ubuntu2004cis_rule_6_2_1: true
+ubuntu2004cis_rule_6_2_2: true
+ubuntu2004cis_rule_6_2_3: true
+ubuntu2004cis_rule_6_2_4: true
+ubuntu2004cis_rule_6_2_5: true
+ubuntu2004cis_rule_6_2_6: true
+ubuntu2004cis_rule_6_2_7: true
+ubuntu2004cis_rule_6_2_8: true
+ubuntu2004cis_rule_6_2_9: true
+ubuntu2004cis_rule_6_2_10: true
+ubuntu2004cis_rule_6_2_11: true
+ubuntu2004cis_rule_6_2_12: true
+ubuntu2004cis_rule_6_2_13: true
+ubuntu2004cis_rule_6_2_14: true
+ubuntu2004cis_rule_6_2_15: true
+ubuntu2004cis_rule_6_2_16: true
+ubuntu2004cis_rule_6_2_17: true
+
 ubuntu2004cis_tmp_fstab_options: "defaults,rw,nosuid,nodev,noexec,relatime,size=2G"
 ubuntu2004cis_dev_shm_fstab_options: "defaults,noexec,nodev,nosuid"
-ubuntu2004cis_dev_xvdf2_fstab_options: "defaults,noexec,nodev,nosuid"
+ubuntu2004cis_var_tmp_fstab_options: "defaults,noexec,nodev,nosuid"
 
 ubuntu2004_partition_count: 4
+
+ubuntu_device_src: xvdf
 # Service configuration variables, set to true to keep service
 ubuntu2004cis_allow_autofs: false
 
@@ -143,39 +308,6 @@ ubuntu2004cis_warning_banner: |
 # false means you do not require a desktop
 ubuntu2004cis_desktop_required: false
 
-
-#---------------------------------------------- Section 2 Services --------------------------------------------------#
-ubuntu2004cis_section2: true
-
-ubuntu2004cis_rule_2_1_1_1: false
-ubuntu2004cis_rule_2_1_1_2: false
-ubuntu2004cis_rule_2_1_1_3: false
-ubuntu2004cis_rule_2_1_1_4: false
-ubuntu2004cis_rule_2_1_2: true
-ubuntu2004cis_rule_2_1_3: true
-ubuntu2004cis_rule_2_1_4: true
-ubuntu2004cis_rule_2_1_5: true
-ubuntu2004cis_rule_2_1_6: true
-ubuntu2004cis_rule_2_1_7: true
-ubuntu2004cis_rule_2_1_8: true
-ubuntu2004cis_rule_2_1_9: true
-ubuntu2004cis_rule_2_1_10: false
-ubuntu2004cis_rule_2_1_11: true
-ubuntu2004cis_rule_2_1_12: true
-ubuntu2004cis_rule_2_1_13: false
-ubuntu2004cis_rule_2_1_14: true
-ubuntu2004cis_rule_2_1_15: true
-ubuntu2004cis_rule_2_1_16: true
-ubuntu2004cis_rule_2_1_17: true
-
-ubuntu2004cis_rule_2_2_1: true
-ubuntu2004cis_rule_2_2_2: true
-ubuntu2004cis_rule_2_2_3: true
-ubuntu2004cis_rule_2_2_4: false
-ubuntu2004cis_rule_2_2_5: true
-ubuntu2004cis_rule_2_2_6: true
-
-ubuntu2004cis_rule_2_3: false
 # Variables for 2.1
 # The two options are chrony, ntp, or systemd-timesyncd
 ubtuntu2004cis_time_sync_tool: "ntp"
@@ -230,8 +362,120 @@ ubuntu2004cis_telnet_required: false
 ubuntu2004cis_ldap_clients_required: false
 ubuntu2004cis_is_router: false
 
+# IPv6 requirement toggle
+ubuntu2004cis_ipv6_required: false
 
+# section 4.2.1
+ubuntu2004cis_system_is_log_server: true
+# ubuntu2004cis_remote_log_server is the remote logging server
+ubuntu2004cis_remote_log_server: 192.168.2.100
 
+# Control 4.2.1.3
+# ubuntu2004cis_rsyslog_ansible_managed will toggle ansible automated configurations of rsyslog
+# You should set the rsyslog to your side specific needs. This toggle will use the example from
+# page 347 to set rsyslog loggin based on those configuration suggestions. Settings can be seen
+# in control 4.2.1.3
+ubuntu2004cis_rsyslog_ansible_managed: true
 
+# Control 4.3
+# ubuntu2004cis_logrotate is the log rotate frequencey. Options are daily, weekly, monthly, and yearly
+ubuntu2004cis_logrotate: "daily"
 
+# Control 4.3
+# ubuntu2004cis_logrotate_create_settings are the settings for the create parameter in /etc/logrotate.conf
+# The permissions need to be 640 or more restrictive.
+# If you would like to include user/group settings to this parameter format the var as below
+# ubuntu2004cis_logrotate_create_settings: "0640 root utmp"
+ubuntu2004cis_logrotate_create_settings: "0640"
 
+# Section 5 Control Variables
+# Control 5.2.1
+# ubuntu2004cis_sudo_package is the name of the sudo package to install
+# The possible values are "sudo" or "sudo-ldap"
+ubuntu2004cis_sudo_package: "sudo"
+
+# Control 5.2.3
+# ubuntu2004cis_sudo_logfile is the path and file name of the sudo log file
+ubuntu2004cis_sudo_logfile: "/var/log/sudo.log"
+
+# max_sessions is the max number of open sessions permitted. Set the value to 4 or less to conform to CIS standards
+ubuntu2004cis_sshd:
+    log_level: "INFO"
+    max_auth_tries: 4
+    ciphers: "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+    macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256"
+    kex_algorithms: "curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256"
+    client_alive_interval: 300
+    client_alive_count_max: 0
+    login_grace_time: 30
+    max_sessions: 4
+    # WARNING: make sure you understand the precedence when working with these values!!
+    allow_users: "vagrant ubuntu"
+    allow_groups: "vagrant ubuntu"
+
+# Control 5.4.3
+# ubuntu2004cis_pamd_pwhistory_remember is number of password chnage cycles a user can re-use a password
+# This needs to be 5 or more to conform to CIS standards
+ubuntu2004cis_pamd_pwhistory_remember: 5
+
+# ubuntu2004cis_pass will be password based variables
+# Control 5.5.1.1
+# pass_min_days is the min number of days allowed between changing passwords. Set to 1 or more to conform to CIS standards
+# Control 5.5.1.2
+# max_days forces passwords to expire in configured number of days. Set to 365 or less to conform to CIS standards
+# Control 5.5.1.3
+# warn_age is how many days before pw expiry the user will be warned. Set to 7 or more to conform to CIS standards
+# Control 5.5.1.4
+# inactive the number of days of inactivity before the account will lock. Set to 30 day sor less to conform to CIS standards
+ubuntu2004cis_pass:
+    max_days: 365
+    min_days: 1
+    warn_age: 7
+    inactive: 30
+
+# Control 5.5.4
+# ubtu120cis_bash_umask is the umask to set in the /etc/bash.bashrc and /etc/profile.
+# The value needs to be 027 or more restrictive to comply with CIS standards
+ubuntu2004cis_bash_umask: '027'
+
+# Control 5.5.5
+# Session timeout setting file (TMOUT setting can be set in multiple files)
+# Timeout value is in seconds. Set value to 900 seconds or less
+ubuntu2004cis_shell_session_timeout:
+    file: /etc/profile.d/tmout.sh
+    timeout: 900
+
+# Control 5.7
+# ubuntu2004cis_su_group is the su group to use with pam_wheel
+ubuntu2004cis_su_group: "wheel"
+
+# Section 6 Control Variables
+# Control 6.1.10
+# ubuntu2004cis_no_world_write_adjust will toggle the automated fix to remove world-writable perms from all files
+# Setting to true will remove all world-writable permissions, and false will leave as-is
+ubuntu2004cis_no_world_write_adjust: true
+
+# Control 6.1.11
+# ubuntu2004cis_un_owned_owner is the owner to set files to that have no owner
+ubuntu2004cis_unowned_owner: root
+# ubuntu2004cis_no_owner_adjust will toggle the automated fix to give a user to unowned files/directories
+# true will give the owner from ubuntu2004cis_un_owned_owner to all unowned files/directories and false will skip
+ubuntu2004cis_no_owner_adjust: true
+# Control 6.1.12
+# ubuntu2004cis_ungrouped_group is the group to set files to that have no group
+ubuntu2004cis_ungrouped_group: root
+# ubuntu2004cis_no_group_adjust will toggle the automated fix to give a group to ungrouped files/directories
+# true will give the group from ubuntu2004cis_un_owned_group to all ungrouped files/directories and false will skip
+ubuntu2004cis_no_group_adjust: true
+
+# Cotnrol 6.1.13
+# ubuntu2004cis_suid_adjust is the toggle to remove the SUID bit from all files on all mounts
+# Set to true this role will remove that bit, set to false we will just warn about the files
+ubuntu2004cis_suid_adjust: false
+
+# Control 6.2.5 Allow ansible to adjust world-writable files. False will just display world-writable files, True will remove world-writable
+# ubuntu2004cis_passwd_label: "{{ (this_item | default(item)).id }}: {{ (this_item | default(item)).dir }}"
+ubuntu2004cis_passwd_label: "{{ (this_item | default(item)).id }}: {{ (this_item | default(item)).dir }}"
+
+# tweak role to run in a non-privileged container
+ubuntu2004cis_system_is_container: false

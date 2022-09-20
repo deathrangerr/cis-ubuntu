@@ -189,7 +189,7 @@
 
     - name: Create 4 equal partition  
       parted:
-        device: /dev/xvdf
+        device: /dev/{{ ubuntu_device_src }}
         number: "{{ (item | int | abs) + 1 }}"
         label: gpt
         flags: [ lvm ]
@@ -211,11 +211,11 @@
     - name: format the ext4 filesystem
       filesystem:
         fstype: ext4
-        dev: /dev/xvdf1
+        dev: /dev/{{ ubuntu_device_src }}1
 
     - mount:
         fstype: ext4
-        src: /dev/xvdf1
+        src: /dev/{{ ubuntu_device_src }}1
         path: /var
         state: mounted
 
@@ -232,11 +232,11 @@
     - name: format the ext4 filesystem
       filesystem:
         fstype: ext4
-        dev: /dev/xvdf2
+        dev: /dev/{{ ubuntu_device_src }}2
 
     - mount:
         fstype: ext4
-        src: /dev/xvdf2
+        src: /dev/{{ ubuntu_device_src }}2
         path: /var/tmp
         state: mounted
 
@@ -245,34 +245,36 @@
    
   when:
     - ubuntu2004cis_rule_1_1_11
-
+  tags:
+    - rule_1_1_11
 
 - name: |
-    "AUTOMATED | 1.1.12 | PATCH | Ensure nodev option set on /dev/shm partition"
-    "AUTOMATED | 1.1.13 | PATCH | Ensure nosuid option set on /dev/shm partition"
-    "AUTOMATED | 1.1.14 | PATCH | Ensure noexec option set on /dev/shm partition"
+    "AUTOMATED | 1.1.12 | PATCH | Ensure nodev option set on /var/tmp partition"
+    "AUTOMATED | 1.1.13 | PATCH | Ensure nosuid option set on /var/tmp partition"
+    "AUTOMATED | 1.1.14 | PATCH | Ensure noexec option set on /var/tmp partition"
   mount:
-      src: /dev/xvdf2
+      src: /dev/{{ ubuntu_device_src }}2
       path: /var/tmp
       state: remounted
       fstype: ext4
-      opts: "{{ ubuntu2004cis_dev_xvdf2_fstab_options }}"
+      opts: "{{ ubuntu2004cis_var_tmp_fstab_options }}"
   when:
     - ubuntu2004cis_rule_1_1_12
     - ubuntu2004cis_rule_1_1_13
     - ubuntu2004cis_rule_1_1_14
-
+  tags:
+    - rule_1_1_12_14
 
 - name: AUTOMATED | 1.1.15 | PATCH | Ensure /var/log is mounted 
   block:
     - name: format the ext4 filesystem
       filesystem:
         fstype: ext4
-        dev: /dev/xvdf3
+        dev: /dev/{{ ubuntu_device_src }}3
 
     - mount:
         fstype: ext4
-        src: /dev/xvdf3
+        src: /dev/{{ ubuntu_device_src }}3
         path: /var/log
         state: mounted
 
@@ -281,18 +283,19 @@
    
   when:
     - ubuntu2004cis_rule_1_1_15
-
+  tags:
+    - rule_1_1_15
 
 - name: AUTOMATED | 1.1.16 | PATCH | Ensure /var/log/audit is mounted 
   block:
     - name: format the ext4 filesystem
       filesystem:
         fstype: ext4
-        dev: /dev/xvdf4
+        dev: /dev/{{ ubuntu_device_src }}4
 
     - mount:
         fstype: ext4
-        src: /dev/xvdf4
+        src: /dev/{{ ubuntu_device_src }}4
         path: /var/log/audit
         state: mounted
 
@@ -301,19 +304,20 @@
   
   when:
     - ubuntu2004cis_rule_1_1_16
-
+  tags:
+    - rule_1_1_16
 # - name: AUTOMATED | 1.1.17 | PATCH | Ensure /home is mounted 
 #   block:
 #     - name: format the xfs filesystem
 #       filesystem:
 #         fstype: xfs
-#         dev: /dev/xvdf5
+#         dev: /dev/{{ ubuntu_device_src }}5
 
 #     - shell: sudo mv -f /home /home1 
 
 #     - mount:
 #         fstype: xfs
-#         src: /dev/xvdf5
+#         src: /dev/{{ ubuntu_device_src }}5
 #         path: /home
 #         state: mounted
 

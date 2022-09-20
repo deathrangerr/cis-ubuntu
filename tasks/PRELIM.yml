@@ -33,3 +33,13 @@
   check_mode: false
   when:
       - ubuntu2004cis_rule_1_1_23
+
+- name: "PRELIM | List users accounts"
+  command: "awk -F: '{print $1}' /etc/passwd"
+  changed_when: false
+  check_mode: false
+  register: ubuntu2004cis_users
+  when:
+      - ubuntu2004cis_rule_6_2_8 or
+        ubuntu2004cis_rule_6_2_9 or
+        ubuntu2004cis_rule_6_2_10

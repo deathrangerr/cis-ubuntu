@@ -1,15 +1,28 @@
+---
+
 galaxy_info:
-  author: Amol Goel
-  namespace: cis
-  description: cis v1.1.0
-  company: Credit Saison
-
-  license: license (GPL-2.0-or-later, MIT, etc)
-
-  min_ansible_version: 2.1
-
-  galaxy_tags: []
-
+    author: "Amol Goel, Mani Deepu"
+    description: "Apply the Ubuntu 20 CIS benmarks"
+    company: "Credit Saison"
+    license: 
+    role_name: ubuntu20_cis
+    min_ansible_version: 2.9.0
+    platforms:
+        - name: Ubuntu
+          versions:
+              - focal
+    galaxy_tags:
+        - system
+        - security
+        - cis
+        - hardening
+        - benchmark
+        - compliance
+        - complianceascode
+        - ubuntu20
+collections:
+    - community.general
+    - community.crypto
+    - ansible.posix
 
 dependencies: []
-
