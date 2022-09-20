@@ -1,6 +1,6 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: 44.204.185.114
   vars:
     ubuntu2004cis_selinux_disable: true
   roles:
