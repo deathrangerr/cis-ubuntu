@@ -1,32 +1,9 @@
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/CreditSaisonIndia/wakanda/blob/CLS-27580/README.md">
-    <img src="logo.jpg" alt="Logo" width="200" height="200">
-  </a>
-
-  <h3 align="center">WAKANDA</h3>
-
-  <p align="center">
-    CIS Benchmark level 1 V1.1.0 written in yml scripts, structured in ansible role format
-    <br />
-    <a href="https://github.com/CreditSaisonIndia/wakanda/blob/CLS-27580/README.md"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/CreditSaisonIndia/wakanda/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/CreditSaisonIndia/wakanda/issues">Request Feature</a>
-  </p>
-</p>
 
 
 # wakanda
 
 #### To run the playbook from the master, make sure to share ~/.ssh/id_rsa.pub key of master to node in ~/.ssh/authorized_keys
 
-### Use the following command and checkout this repo
-
-> git clone git@github.com:CreditSaisonIndia/wakanda.git
 
 #### Create a shell script and paste the following given content in the file
 > shell .sh
@@ -34,7 +11,7 @@
 #!/bin/bash
 
 
-node_ip=172.3.113.151
+node_ip=
 cat <<EOF >playbook.yml
 ---
 
@@ -100,7 +77,7 @@ UserData:
 > inven
 ```
 [client]
-server1 ansible_host=172.31.83.99
+server1 ansible_host=
 [client:vars]
 ansible_user=ubuntu
 ```
