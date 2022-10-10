@@ -1,0 +1,66 @@
+---
+# tasks file for Ubuntu2004-CIS
+
+- import_tasks: prelim.yml
+
+- import_tasks: parse_etc_password.yml
+  when:
+      - ubuntu2004cis_section5 or
+        ubuntu2004cis_section6
+
+
+- name: Include section 1 
+  import_tasks: section_1/main.yml
+  when: ubuntu2004cis_section1
+
+- name: Include section 2
+  import_tasks: section_2/main.yml
+  when: ubuntu2004cis_section2
+
+- name: Include section 3
+  import_tasks: section_3/main.yml
+  when: ubuntu2004cis_section3
+
+- name: Include section 4
+  import_tasks: section_4/main.yml
+  when: ubuntu2004cis_section4
+
+- name: Include section 5
+  import_tasks: section_5/main.yml
+  when: ubuntu2004cis_section5
+
+- name: Include section 6
+  import_tasks: section_6/main.yml
+  when: ubuntu2004cis_section6
+  
+- name: Install java-common
+  command: apt install java-common -y
+
+- name: codedeploy
+  #command:  wget -P /home/ubuntu https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+  get_url:
+    url: https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+    dest: /home/ubuntu
+    mode: '0700'
+#- name: codedeploy
+  #command: chmod +x /home/ubuntu/./install
+- name: codedeploy
+  command: /home/ubuntu/./install auto
+- name: codedeploy
+  file:
+    path: /home/ubuntu/./install
+    state: absent
+  #command: rm /home/ubuntu/./install
+
+- name: stop codedeploy
+  command: systemctl stop codedeploy-agent
+
+- name: disable codedeploy
+  command: systemctl disable codedeploy-agent
+  
+
+             
+            
+            
+            
+

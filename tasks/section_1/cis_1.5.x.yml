@@ -1,0 +1,119 @@
+---
+
+- name: "MANUAL | 1.5.1 | AUDIT | Ensure XD/NX support is enabled"
+  shell: |
+      set -o pipefail;
+      dmesg | grep -E "NX|XD" | grep " active"
+  args:
+      executable: /bin/bash
+  changed_when: false
+  when:
+      - ubuntu2004cis_rule_1_5_1
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.5.1
+
+
+- name: "AUTOMATED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
+  block:
+  - name: "AUTOMATED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled | Set ASLR settings"
+    lineinfile:
+      path: /etc/sysctl.conf
+      regexp: '^kernel.randomize_va_space'
+      line: 'kernel.randomize_va_space = 2'
+
+  - name: "AUTOMATED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled | Set active kernel parameter"
+    sysctl:
+      name: kernel.randomize_va_space
+      value: '2'
+  when:
+      - ubuntu2004cis_rule_1_5_2
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.5.2
+      - aslr
+
+
+- name: "AUTOMATED | 1.5.3 | PATCH | Ensure prelink is not installed"
+  block:
+  - name: "AUTOMATED | 1.5.3 | PATCH | Ensure prelink is not installed | Restore binaries to normal"
+    command: prelink -ua
+    changed_when: false
+    failed_when: false
+
+  - name: "AUTOMATED | 1.5.3 | PATCH | Ensure prelink is not installed| Remove prelink package"
+    apt:
+      name: prelink
+      state: absent
+  when:
+      - ubuntu2004cis_rule_1_5_3
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - rule_1.5.3
+      - prelink
+
+
+- name: "1.5.4 | Ensure core dumps are restricted (Automated)"
+  block:
+
+    - name: "1.5.4 | Ensure core dumps are restricted (Automated) | limit for user groups"
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: '* hard core 0'
+        regexp: .*\*.*hard.*core.*[0-9]
+        state:  present
+        owner: root
+        group: root
+        mode: '0544'
+        backup: yes
+
+    - name: "1.5.4 | Ensure core dumps are restricted (Automated) | set kernel parameter fs.suid_dumpable"
+      sysctl:
+        name: fs.suid_dumpable
+        value: '0'
+        state: present
+        reload: yes
+        sysctl_set: yes
+
+    - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump package"
+      apt:
+        name: systemd-coredump
+        state: present
+
+    - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump conf file Storage=none modification"
+      ini_file:
+        path: /etc/systemd/coredump.conf
+        section: Coredump
+        option: Storage
+        value: none
+        owner: root
+        group: root
+        mode: '0544'
+        state: present
+        no_extra_spaces: yes
+
+    - name: "1.5.4 | Ensure core dumps are restricted (Automated) | systemd-coredump conf file ProcessSizeMax=0 modification"
+      ini_file:
+        path: /etc/systemd/coredump.conf
+        section: Coredump
+        option: ProcessSizeMax
+        value: '0'
+        owner: root
+        group: root
+        mode: '0544'
+        state: present
+        no_extra_spaces: yes
+  when:
+    - ubuntu2004cis_rule_1_5_4
+  tags:
+    - section1
+    - rule_1_5_4
+    - level_1

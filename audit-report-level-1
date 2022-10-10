@@ -1,0 +1,1106 @@
+# This report can be genearate on-demand basis using individual subscription token from ubuntu focal
+# This CIS level-1 audit doc is for v2.8.0, please ignore the failed rules as the script was based on v1.1.0
+# The relese for v2.8.0 will be an incremantal release
+# Report is generated using usg tool provided by ubuntu 
+# https://ubuntu.com/security/certifications/docs/disa-stig/installation
+
+
+Title   Disable Prelinking via removing prelink package
+Rule    package_prelink_removed
+Result  pass
+
+Title   Install AIDE
+Rule    package_aide_installed
+Result  pass
+
+Title   Build and Test AIDE Database
+Rule    aide_build_database
+Result  fail
+
+Title   Configure Periodic Execution of AIDE
+Rule    aide_periodic_cron_checking
+Result  pass
+
+Title   Ensure /tmp Located On Separate Partition
+Rule    partition_for_tmp
+Result  pass
+
+Title   Remove the GDM Package Group
+Rule    package_gdm_removed
+Result  notapplicable
+
+Title   Install sudo Package
+Rule    package_sudo_installed
+Result  pass
+
+Title   Ensure Only Users Logged In To Real tty Can Execute Sudo - sudo use_pty
+Rule    sudo_add_use_pty
+Result  pass
+
+Title   Ensure Sudo Logfile Exists - sudo logfile
+Rule    sudo_custom_logfile
+Result  fail
+
+Title   Verify Group Ownership of System Login Banner
+Rule    file_groupowner_etc_issue
+Result  pass
+
+Title   Verify Group Ownership of Remote Login Banner
+Rule    file_groupowner_etc_issue_net
+Result  pass
+
+Title   Verify Group Ownership of Message of the Day Banner
+Rule    file_groupowner_etc_motd
+Result  pass
+
+Title   Verify ownership of System Login Banner
+Rule    file_owner_etc_issue
+Result  pass
+
+Title   Verify ownership of Remote Login Banner
+Rule    file_owner_etc_issue_net
+Result  pass
+
+Title   Verify ownership of Message of the Day Banner
+Rule    file_owner_etc_motd
+Result  pass
+
+Title   Verify permissions on System Login Banner
+Rule    file_permissions_etc_issue
+Result  pass
+
+Title   Verify permissions on Remote Login Banner
+Rule    file_permissions_etc_issue_net
+Result  pass
+
+Title   Verify permissions on Message of the Day Banner
+Rule    file_permissions_etc_motd
+Result  pass
+
+Title   Ensure local login warning banner is configured properly
+Rule    no_etc_issue_leak
+Result  pass
+
+Title   Ensure remote login warning banner is configured properly
+Rule    no_etc_issue_net_leak
+Result  pass
+
+Title   Ensure message of the day is configured properly
+Rule    no_etc_motd_leak
+Result  pass
+
+Title   Limit Password Reuse
+Rule    accounts_password_pam_pwhistory_remember
+Result  pass
+
+Title   Set Deny For Failed Password Attempts
+Rule    accounts_passwords_pam_tally2
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Digit Characters
+Rule    accounts_password_pam_dcredit
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Lowercase Characters
+Rule    accounts_password_pam_lcredit
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Different Categories
+Rule    accounts_password_pam_minclass
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Length
+Rule    accounts_password_pam_minlen
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Special Characters
+Rule    accounts_password_pam_ocredit
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Authentication Retry Prompts Permitted Per-Session
+Rule    accounts_password_pam_retry
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Uppercase Characters
+Rule    accounts_password_pam_ucredit
+Result  fail
+
+Title   Ensure authentication required for single user mode
+Rule    single_user_authentication
+Result  fail
+
+Title   Set Account Expiration Following Inactivity
+Rule    account_disable_post_pw_expiration
+Result  pass
+
+Title   Set Password Maximum Age
+Rule    accounts_maximum_age_login_defs
+Result  pass
+
+Title   Set Password Minimum Age
+Rule    accounts_minimum_age_login_defs
+Result  pass
+
+Title   Set Existing Passwords Maximum Age
+Rule    accounts_password_set_max_life_existing
+Result  pass
+
+Title   Set Existing Passwords Minimum Age
+Rule    accounts_password_set_min_life_existing
+Result  pass
+
+Title   Set Password Warning Age
+Rule    accounts_password_warn_age_login_defs
+Result  pass
+
+Title   Ensure all users last password change date is in the past
+Rule    last_change_date_in_past
+Result  pass
+
+Title   Verify All Account Password Hashes are Shadowed with SHA512
+Rule    accounts_password_all_shadowed_sha512
+Result  fail
+
+Title   Ensure all groups in /etc/passwd exist in /etc/group
+Rule    all_etc_passwd_groups_exist_in_etc_group
+Result  pass
+
+Title   Ensure shadow group is empty
+Rule    ensure_shadow_group_empty
+Result  pass
+
+Title   Ensure no duplicate GIDs exist
+Rule    no_duplicate_gids
+Result  pass
+
+Title   Ensure no duplicate group names exist
+Rule    no_duplicate_group_names
+Result  pass
+
+Title   Ensure no duplicate UIDs exist
+Rule    no_duplicate_uids
+Result  pass
+
+Title   Ensure no duplicate user names exist
+Rule    no_duplicate_user_names
+Result  pass
+
+Title   Lock Accounts With Empty Password Field
+Rule    no_empty_password_field
+Result  pass
+
+Title   Ensure users' .netrc Files are not group or world accessible
+Rule    no_group_world_readable_netrc_files
+Result  pass
+
+Title   Verify No netrc Files Exist
+Rule    no_netrc_files
+Result  pass
+
+Title   Ensure default group for the root account is GID 0
+Rule    accounts_no_gid_except_zero
+Result  pass
+
+Title   Verify Only Root Has UID 0
+Rule    accounts_no_uid_except_zero
+Result  pass
+
+Title   Ensure the group used by pam_wheel module exists on system and is empty
+Rule    ensure_pam_wheel_group_empty
+Result  fail
+
+Title   Ensure that System Accounts Do Not Run a Shell Upon Login
+Rule    no_shelllogin_for_systemaccounts
+Result  pass
+
+Title   Enforce usage of pam_wheel with group parameter for su authentication
+Rule    use_pam_wheel_group_for_su
+Result  fail
+
+Title   Set Interactive Session Timeout
+Rule    accounts_tmout
+Result  fail
+
+Title   User Initialization Files Must Be Owned By the Primary User
+Rule    accounts_user_dot_user_ownership
+Result  fail
+
+Title   All Interactive Users Home Directories Must Exist
+Rule    accounts_user_interactive_home_directory_exists
+Result  fail
+
+Title   Ensure users own their home directories
+Rule    accounts_users_own_home_directories
+Result  fail
+
+Title   Ensure appropriate umask set for adduser
+Rule    adduser_home_directories_mode
+Result  fail
+
+Title   All Interactive User Home Directories Must Have mode 0750 Or Less Permissive
+Rule    file_permissions_home_directories
+Result  fail
+
+Title   Ensure no users have .forward files
+Rule    no_forward_files
+Result  pass
+
+Title   Ensure users' dot files are not group or world writable
+Rule    no_group_world_writable_dot_files
+Result  pass
+
+Title   Ensure appropriate homedir mode set for useradd
+Rule    useradd_home_directories_mode
+Result  fail
+
+Title   Ensure that Root's Path Does Not Include World or Group-Writable Directories
+Rule    accounts_root_path_dirs_no_write
+Result  pass
+
+Title   Ensure the Default Bash Umask is Set Correctly
+Rule    accounts_umask_etc_bashrc
+Result  fail
+
+Title   Ensure the Default C Shell Umask is Set Correctly
+Rule    accounts_umask_etc_csh_cshrc
+Result  fail
+
+Title   Ensure the Default Umask is Set Correctly in login.defs
+Rule    accounts_umask_etc_login_defs
+Result  fail
+
+Title   Ensure the Default Umask is Set Correctly in /etc/profile
+Rule    accounts_umask_etc_profile
+Result  pass
+
+Title   Ensure the Default Umask is Set Correctly For Interactive Users
+Rule    accounts_umask_interactive_users
+Result  notchecked
+
+Title   Ensure AppArmor is installed
+Rule    package_apparmor_installed
+Result  pass
+
+Title   Ensure all AppArmor Profiles are in enforce or complain mode
+Rule    ensure_apparmor_enforce_or_complain
+Result  pass
+
+Title   Ensure AppArmor is enabled in the bootloader configuration
+Rule    grub2_enable_apparmor
+Result  pass
+
+Title   Verify /boot/grub/grub.cfg User Ownership
+Rule    file_owner_grub2_cfg
+Result  pass
+
+Title   Verify /boot/grub/grub.cfg Permissions
+Rule    file_permissions_grub2_cfg
+Result  fail
+
+Title   Set Boot Loader Password in grub2
+Rule    grub2_password
+Result  fail
+
+Title   Ensure rsyslog is Installed
+Rule    package_rsyslog_installed
+Result  pass
+
+Title   Enable rsyslog Service
+Rule    service_rsyslog_enabled
+Result  pass
+
+Title   Ensure permissions on all logfiles are configured
+Rule    all_logfile_permissions
+Result  fail
+
+Title   Ensure rsyslog default file permissions configured
+Rule    rsyslog_filecreatemode
+Result  pass
+
+Title   Ensure journald is configured to compress large log files
+Rule    compress_large_logs
+Result  pass
+
+Title   Ensure journald is configured to send logs to rsyslog
+Rule    forward_to_syslog
+Result  pass
+
+Title   Ensure journald is configured to write logfiles to persistent disk
+Rule    persistent_storage
+Result  pass
+
+Title   Ensure logrotate assigns appropriate permissions
+Rule    ensure_logrotate_permissions
+Result  fail
+
+Title   Ensure Logs Sent To Remote Host
+Rule    rsyslog_remote_loghost
+Result  pass
+
+Title   Install iptables-persistent Package
+Rule    package_iptables-persistent_installed
+Result  fail
+
+Title   Install iptables Package
+Rule    package_iptables_installed
+Result  pass
+
+Title   Remove iptables-persistent Package
+Rule    package_iptables-persistent_removed
+Result  pass
+
+Title   Trafic in on lo is allowed
+Rule    ip6tables_allow_in_lo
+Result  fail
+
+Title   Traffic out on lo is allowed
+Rule    ip6tables_allow_out_lo
+Result  fail
+
+Title   Inbound traffic for ::1/128 on any other interface is denied.
+Rule    ip6tables_deny_in_other_for_localhost6
+Result  fail
+
+Title   Trafic in on lo is allowed
+Rule    iptables_allow_in_lo
+Result  fail
+
+Title   Traffic out on lo is allowed
+Rule    iptables_allow_out_lo
+Result  fail
+
+Title   Inbound traffic for 127.0.0.0/8 on any other interface is denied.
+Rule    iptables_deny_in_other_for_localhost
+Result  fail
+
+Title   Ensure default deny firewall policy - iptables6
+Rule    ip6tables_default_deny
+Result  fail
+
+Title   Ensure default deny firewall policy
+Rule    iptables_default_deny
+Result  fail
+
+Title   Configure Accepting Router Advertisements on All IPv6 Interfaces
+Rule    sysctl_net_ipv6_conf_all_accept_ra
+Result  fail
+
+Title   Disable Accepting ICMP Redirects for All IPv6 Interfaces
+Rule    sysctl_net_ipv6_conf_all_accept_redirects
+Result  fail
+
+Title   Disable Kernel Parameter for Accepting Source-Routed Packets on all IPv6 Interfaces
+Rule    sysctl_net_ipv6_conf_all_accept_source_route
+Result  fail
+
+Title   Disable Kernel Parameter for IPv6 Forwarding
+Rule    sysctl_net_ipv6_conf_all_forwarding
+Result  fail
+
+Title   Disable Accepting Router Advertisements on all IPv6 Interfaces by Default
+Rule    sysctl_net_ipv6_conf_default_accept_ra
+Result  fail
+
+Title   Disable Kernel Parameter for Accepting ICMP Redirects by Default on IPv6 Interfaces
+Rule    sysctl_net_ipv6_conf_default_accept_redirects
+Result  fail
+
+Title   Disable Kernel Parameter for Accepting Source-Routed Packets on IPv6 Interfaces by Default
+Rule    sysctl_net_ipv6_conf_default_accept_source_route
+Result  fail
+
+Title   Disable Accepting ICMP Redirects for All IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_accept_redirects
+Result  pass
+
+Title   Disable Kernel Parameter for Accepting Source-Routed Packets on all IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_accept_source_route
+Result  pass
+
+Title   Enable Kernel Parameter to Log Martian Packets on all IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_log_martians
+Result  pass
+
+Title   Enable Kernel Parameter to Use Reverse Path Filtering on all IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_rp_filter
+Result  pass
+
+Title   Disable Kernel Parameter for Accepting Secure ICMP Redirects on all IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_secure_redirects
+Result  pass
+
+Title   Disable Kernel Parameter for Accepting ICMP Redirects by Default on IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_default_accept_redirects
+Result  pass
+
+Title   Disable Kernel Parameter for Accepting Source-Routed Packets on IPv4 Interfaces by Default
+Rule    sysctl_net_ipv4_conf_default_accept_source_route
+Result  pass
+
+Title   Enable Kernel Paremeter to Log Martian Packets on all IPv4 Interfaces by Default
+Rule    sysctl_net_ipv4_conf_default_log_martians
+Result  pass
+
+Title   Enable Kernel Parameter to Use Reverse Path Filtering on all IPv4 Interfaces by Default
+Rule    sysctl_net_ipv4_conf_default_rp_filter
+Result  pass
+
+Title   Configure Kernel Parameter for Accepting Secure Redirects By Default
+Rule    sysctl_net_ipv4_conf_default_secure_redirects
+Result  pass
+
+Title   Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests on IPv4 Interfaces
+Rule    sysctl_net_ipv4_icmp_echo_ignore_broadcasts
+Result  pass
+
+Title   Enable Kernel Parameter to Ignore Bogus ICMP Error Responses on IPv4 Interfaces
+Rule    sysctl_net_ipv4_icmp_ignore_bogus_error_responses
+Result  pass
+
+Title   Enable Kernel Parameter to Use TCP Syncookies on IPv4 Interfaces
+Rule    sysctl_net_ipv4_tcp_syncookies
+Result  pass
+
+Title   Disable Kernel Parameter for Sending ICMP Redirects on all IPv4 Interfaces
+Rule    sysctl_net_ipv4_conf_all_send_redirects
+Result  pass
+
+Title   Disable Kernel Parameter for Sending ICMP Redirects on all IPv4 Interfaces by Default
+Rule    sysctl_net_ipv4_conf_default_send_redirects
+Result  pass
+
+Title   Disable Kernel Parameter for IP Forwarding on IPv4 Interfaces
+Rule    sysctl_net_ipv4_ip_forward
+Result  fail
+
+Title   Install nftables Package
+Rule    package_nftables_installed
+Result  pass
+
+Title   Remove nftables Package
+Rule    package_nftables_removed
+Result  pass
+
+Title   Verify nftables Enabled
+Rule    service_nftables_enabled
+Result  pass
+
+Title   Ensure default deny firewall policy
+Rule    nftables_default_deny
+Result  notapplicable
+
+Title   Ensure base chains exist
+Rule    nftables_ensure_base_chain_exist
+Result  notapplicable
+
+Title   Ensure a table exists
+Rule    nftables_ensure_table_exists
+Result  notapplicable
+
+Title   Ensure nftables rules are permanent
+Rule    nftables_permanent_rules
+Result  notapplicable
+
+Title   Trafic in on lo is allowed
+Rule    nftables_allow_in_lo
+Result  notapplicable
+
+Title   Inbound traffic for 127.0.0.0/8 on any other interface is denied.
+Rule    nftables_deny_in_other_for_localhost
+Result  notapplicable
+
+Title   Inbound traffic for ::1/128 on any other interface is denied.
+Rule    nftables_deny_in_other_for_localhost6
+Result  notapplicable
+
+Title   Install ufw Package
+Rule    package_ufw_installed
+Result  pass
+
+Title   Remove ufw Package
+Rule    package_ufw_removed
+Result  fail
+
+Title   Verify ufw Enabled
+Rule    service_ufw_enabled
+Result  pass
+
+Title   Ensure default deny firewall policy
+Rule    ufw_default_deny
+Result  notapplicable
+
+Title   Trafic in on lo is allowed
+Rule    ufw_allow_in_lo
+Result  notapplicable
+
+Title   Traffic out on lo is allowed
+Rule    ufw_allow_out_lo
+Result  notapplicable
+
+Title   Inbound traffic for 127.0.0.0/8 on any other interface is denied.
+Rule    ufw_deny_in_other_for_localhost
+Result  notapplicable
+
+Title   Inbound traffic for ::1/128 on any other interface is denied.
+Rule    ufw_deny_in_other_for_localhost6
+Result  notapplicable
+
+Title   Deactivate Wireless Network Interfaces
+Rule    wireless_disable_interfaces
+Result  pass
+
+Title   Verify that All World-Writable Directories Have Sticky Bits Set
+Rule    dir_perms_world_writable_sticky_bits
+Result  pass
+
+Title   Ensure No World-Writable Files Exist
+Rule    file_permissions_unauthorized_world_writable
+Result  pass
+
+Title   Ensure All Files Are Owned by a User
+Rule    no_files_unowned_by_user
+Result  fail
+
+Title   Ensure no ungrouped files or directories exist
+Rule    no_ungrouped_files_or_dirs
+Result  pass
+
+Title   Verify Group Who Owns Backup group File
+Rule    file_groupowner_backup_etc_group
+Result  pass
+
+Title   Verify Group Who Owns Backup gshadow File
+Rule    file_groupowner_backup_etc_gshadow
+Result  pass
+
+Title   Verify Group Who Owns Backup passwd File
+Rule    file_groupowner_backup_etc_passwd
+Result  pass
+
+Title   Verify User Who Owns Backup shadow File
+Rule    file_groupowner_backup_etc_shadow
+Result  pass
+
+Title   Verify Group Who Owns group File
+Rule    file_groupowner_etc_group
+Result  pass
+
+Title   Verify Group Who Owns gshadow File
+Rule    file_groupowner_etc_gshadow
+Result  pass
+
+Title   Verify Group Who Owns passwd File
+Rule    file_groupowner_etc_passwd
+Result  pass
+
+Title   Verify Group Who Owns shadow File
+Rule    file_groupowner_etc_shadow
+Result  pass
+
+Title   Verify User Who Owns Backup group File
+Rule    file_owner_backup_etc_group
+Result  pass
+
+Title   Verify User Who Owns Backup gshadow File
+Rule    file_owner_backup_etc_gshadow
+Result  pass
+
+Title   Verify User Who Owns Backup passwd File
+Rule    file_owner_backup_etc_passwd
+Result  pass
+
+Title   Verify Group Who Owns Backup shadow File
+Rule    file_owner_backup_etc_shadow
+Result  pass
+
+Title   Verify User Who Owns group File
+Rule    file_owner_etc_group
+Result  pass
+
+Title   Verify User Who Owns gshadow File
+Rule    file_owner_etc_gshadow
+Result  pass
+
+Title   Verify User Who Owns passwd File
+Rule    file_owner_etc_passwd
+Result  pass
+
+Title   Verify User Who Owns shadow File
+Rule    file_owner_etc_shadow
+Result  pass
+
+Title   Verify Permissions on Backup group File
+Rule    file_permissions_backup_etc_group
+Result  pass
+
+Title   Verify Permissions on Backup gshadow File
+Rule    file_permissions_backup_etc_gshadow
+Result  pass
+
+Title   Verify Permissions on Backup passwd File
+Rule    file_permissions_backup_etc_passwd
+Result  pass
+
+Title   Verify Permissions on Backup shadow File
+Rule    file_permissions_backup_etc_shadow
+Result  pass
+
+Title   Verify Permissions on group File
+Rule    file_permissions_etc_group
+Result  pass
+
+Title   Verify Permissions on gshadow File
+Rule    file_permissions_etc_gshadow
+Result  pass
+
+Title   Verify Permissions on passwd File
+Rule    file_permissions_etc_passwd
+Result  pass
+
+Title   Verify Permissions on shadow File
+Rule    file_permissions_etc_shadow
+Result  pass
+
+Title   Disable the Automounter
+Rule    service_autofs_disabled
+Result  pass
+
+Title   Disable Mounting of cramfs
+Rule    kernel_module_cramfs_disabled
+Result  pass
+
+Title   Disable Mounting of freevxfs
+Rule    kernel_module_freevxfs_disabled
+Result  pass
+
+Title   Disable Mounting of hfs
+Rule    kernel_module_hfs_disabled
+Result  pass
+
+Title   Disable Mounting of hfsplus
+Rule    kernel_module_hfsplus_disabled
+Result  pass
+
+Title   Disable Mounting of jffs2
+Rule    kernel_module_jffs2_disabled
+Result  pass
+
+Title   Disable Mounting of udf
+Rule    kernel_module_udf_disabled
+Result  pass
+
+Title   Disable Modprobe Loading of USB Storage Driver
+Rule    kernel_module_usb-storage_disabled
+Result  fail
+
+Title   Add nodev Option to /dev/shm
+Rule    mount_option_dev_shm_nodev
+Result  pass
+
+Title   Add noexec Option to /dev/shm
+Rule    mount_option_dev_shm_noexec
+Result  pass
+
+Title   Add nosuid Option to /dev/shm
+Rule    mount_option_dev_shm_nosuid
+Result  pass
+
+Title   Add nodev Option to /home if it exists
+Rule    mount_option_home_nodev_optional
+Result  pass
+
+Title   Add nodev Option to /tmp if it exists
+Rule    mount_option_tmp_nodev_optional
+Result  pass
+
+Title   Add noexec Option to /tmp if it exists
+Rule    mount_option_tmp_noexec_optional
+Result  pass
+
+Title   Add nosuid Option to /tmp if it exists
+Rule    mount_option_tmp_nosuid_optional
+Result  pass
+
+Title   Add nodev Option to /var/tmp if it exists
+Rule    mount_option_var_tmp_nodev_optional
+Result  pass
+
+Title   Add noexec Option to /var/tmp if it exists
+Rule    mount_option_var_tmp_noexec_optional
+Result  pass
+
+Title   Add nosuid Option to /var/tmp if it exists
+Rule    mount_option_var_tmp_nosuid_optional
+Result  pass
+
+Title   Disable Core Dumps for All Users
+Rule    disable_users_coredumps
+Result  pass
+
+Title   Disable Core Dumps for SUID programs
+Rule    sysctl_fs_suid_dumpable
+Result  pass
+
+Title   Enable Randomized Layout of Virtual Address Space
+Rule    sysctl_kernel_randomize_va_space
+Result  pass
+
+Title   Ensure XD/NX support is enabled
+Rule    ensure_xd_nx_support_enabled
+Result  pass
+
+Title   Disable Apport Service
+Rule    service_apport_disabled
+Result  pass
+
+Title   Uninstall avahi-daemon Package
+Rule    package_avahi-daemon_removed
+Result  pass
+
+Title   Disable Avahi Server Software
+Rule    service_avahi-daemon_disabled
+Result  pass
+
+Title   Enable cron Service
+Rule    service_cron_enabled
+Result  pass
+
+Title   Verify Group Who Owns cron.d
+Rule    file_groupowner_cron_d
+Result  pass
+
+Title   Verify Group Who Owns cron.daily
+Rule    file_groupowner_cron_daily
+Result  pass
+
+Title   Verify Group Who Owns cron.hourly
+Rule    file_groupowner_cron_hourly
+Result  pass
+
+Title   Verify Group Who Owns cron.monthly
+Rule    file_groupowner_cron_monthly
+Result  pass
+
+Title   Verify Group Who Owns cron.weekly
+Rule    file_groupowner_cron_weekly
+Result  pass
+
+Title   Verify Group Who Owns Crontab
+Rule    file_groupowner_crontab
+Result  pass
+
+Title   Verify Owner on cron.d
+Rule    file_owner_cron_d
+Result  pass
+
+Title   Verify Owner on cron.daily
+Rule    file_owner_cron_daily
+Result  pass
+
+Title   Verify Owner on cron.hourly
+Rule    file_owner_cron_hourly
+Result  pass
+
+Title   Verify Owner on cron.monthly
+Rule    file_owner_cron_monthly
+Result  pass
+
+Title   Verify Owner on cron.weekly
+Rule    file_owner_cron_weekly
+Result  pass
+
+Title   Verify Owner on crontab
+Rule    file_owner_crontab
+Result  pass
+
+Title   Verify Permissions on cron.d
+Rule    file_permissions_cron_d
+Result  pass
+
+Title   Verify Permissions on cron.daily
+Rule    file_permissions_cron_daily
+Result  pass
+
+Title   Verify Permissions on cron.hourly
+Rule    file_permissions_cron_hourly
+Result  pass
+
+Title   Verify Permissions on cron.monthly
+Rule    file_permissions_cron_monthly
+Result  pass
+
+Title   Verify Permissions on cron.weekly
+Rule    file_permissions_cron_weekly
+Result  pass
+
+Title   Verify Permissions on crontab
+Rule    file_permissions_crontab
+Result  fail
+
+Title   Verify Group Who Owns /etc/at.allow file
+Rule    file_groupowner_at_allow
+Result  pass
+
+Title   Verify Group Who Owns /etc/cron.allow file
+Rule    file_groupowner_cron_allow
+Result  pass
+
+Title   Verify User Who Owns /etc/at.allow file
+Rule    file_owner_at_allow
+Result  pass
+
+Title   Verify User Who Owns /etc/cron.allow file
+Rule    file_owner_cron_allow
+Result  pass
+
+Title   Verify Permissions on /etc/at.allow file
+Rule    file_permissions_at_allow
+Result  pass
+
+Title   Verify Permissions on /etc/cron.allow file
+Rule    file_permissions_cron_allow
+Result  pass
+
+Title   Ensure at is restricted to authorized users
+Rule    restrict_at_users
+Result  pass
+
+Title   Ensure cron is restricted to authorized users
+Rule    restrict_cron_users
+Result  pass
+
+Title   Uninstall the nis package
+Rule    package_nis_removed
+Result  pass
+
+Title   Uninstall DHCP Server Package
+Rule    package_dhcp_removed
+Result  pass
+
+Title   Uninstall bind Package
+Rule    package_bind_removed
+Result  pass
+
+Title   Uninstall vsftpd Package
+Rule    package_vsftpd_removed
+Result  pass
+
+Title   Uninstall httpd Package
+Rule    package_httpd_removed
+Result  pass
+
+Title   Uninstall dovecot Package
+Rule    package_dovecot_removed
+Result  pass
+
+Title   Ensure LDAP client is not installed
+Rule    package_openldap-clients_removed
+Result  pass
+
+Title   Uninstall openldap-servers Package
+Rule    package_openldap-servers_removed
+Result  pass
+
+Title   Ensure mail transfer agent is configured for local-only mode
+Rule    has_nonlocal_mta
+Result  pass
+
+Title   Disable Postfix Network Listening
+Rule    postfix_network_listening_disabled
+Result  fail
+
+Title   Uninstall nfs-kernel-server Package
+Rule    package_nfs-kernel-server_removed
+Result  pass
+
+Title   Uninstall rpcbind Package
+Rule    package_rpcbind_removed
+Result  pass
+
+Title   The Chrony package is installed
+Rule    package_chrony_installed
+Result  fail
+
+Title   Install the ntp service
+Rule    package_ntp_installed
+Result  pass
+
+Title   The Chrony package is removed
+Rule    package_chrony_removed
+Result  pass
+
+Title   Remove the ntp package
+Rule    package_ntp_removed
+Result  pass
+
+Title   Enable the Chrony Daemon
+Rule    service_chrony_enabled
+Result  fail
+
+Title   Enable the NTP Daemon
+Rule    service_ntp_enabled
+Result  pass
+
+Title   Ensure that chronyd is running under chrony user account
+Rule    chronyd_run_as_chrony_user
+Result  pass
+
+Title   A remote time server for Chrony is configured
+Rule    chronyd_specify_remote_server
+Result  fail
+
+Title   Uninstall rsync Package
+Rule    package_rsync_removed
+Result  pass
+
+Title   Uninstall openbsd-inetd Package
+Rule    package_openbsd-inetd_removed
+Result  pass
+
+Title   Uninstall xinetd Package
+Rule    package_xinetd_removed
+Result  pass
+
+Title   Uninstall rsh Package
+Rule    package_rsh_removed
+Result  pass
+
+Title   Remove Rsh Trust Files
+Rule    no_rsh_trust_files
+Result  pass
+
+Title   Uninstall talk Package
+Rule    package_talk_removed
+Result  pass
+
+Title   Remove telnet Clients
+Rule    package_telnet_removed
+Result  fail
+
+Title   Uninstall cups Package
+Rule    package_cups_removed
+Result  pass
+
+Title   Disable the CUPS Service
+Rule    service_cups_disabled
+Result  pass
+
+Title   Uninstall squid Package
+Rule    package_squid_removed
+Result  pass
+
+Title   Uninstall Samba Package
+Rule    package_samba_removed
+Result  pass
+
+Title   Uninstall net-snmp Package
+Rule    package_net-snmp_removed
+Result  pass
+
+Title   Verify Group Who Owns SSH Server config file
+Rule    file_groupowner_sshd_config
+Result  pass
+
+Title   Verify Owner on SSH Server config file
+Rule    file_owner_sshd_config
+Result  pass
+
+Title   Verify Permissions on SSH Server config file
+Rule    file_permissions_sshd_config
+Result  pass
+
+Title   Verify Permissions on SSH Server Private *_key Key Files
+Rule    file_permissions_sshd_private_key
+Result  pass
+
+Title   Verify Permissions on SSH Server Public *.pub Key Files
+Rule    file_permissions_sshd_pub_key
+Result  pass
+
+Title   Disable Host-Based Authentication
+Rule    disable_host_auth
+Result  pass
+
+Title   Disable SSH Access via Empty Passwords
+Rule    sshd_disable_empty_passwords
+Result  pass
+
+Title   Disable SSH Support for .rhosts Files
+Rule    sshd_disable_rhosts
+Result  pass
+
+Title   Disable SSH Root Login
+Rule    sshd_disable_root_login
+Result  pass
+
+Title   Do Not Allow SSH Environment Options
+Rule    sshd_do_not_permit_user_env
+Result  pass
+
+Title   Enable PAM
+Rule    sshd_enable_pam
+Result  pass
+
+Title   Enable SSH Warning Banner
+Rule    sshd_enable_warning_banner_net
+Result  pass
+
+Title   Set SSH Idle Timeout Interval
+Rule    sshd_set_idle_timeout
+Result  pass
+
+Title   Set SSH Client Alive Count Max
+Rule    sshd_set_keepalive
+Result  pass
+
+Title   Set SSH LoginGraceTime limit
+Rule    sshd_set_login_grace_time
+Result  pass
+
+Title   Set LogLevel to INFO or VERBOSE
+Rule    sshd_set_loglevel_info_or_verbose
+Result  pass
+
+Title   Set SSH authentication attempt limit
+Rule    sshd_set_max_auth_tries
+Result  pass
+
+Title   Set SSH MaxSessions limit
+Rule    sshd_set_max_sessions
+Result  pass
+
+Title   Ensure SSH MaxStartups is configured
+Rule    sshd_set_maxstartups
+Result  pass
+
+Title   Use Only Approved Ciphers
+Rule    sshd_use_approved_ciphers
+Result  fail
+
+Title   Use Only Approved KEXs
+Rule    sshd_use_approved_kexs
+Result  pass
+
+Title   Use Only Approved MACs
+Rule    sshd_use_approved_macs
+Result  pass
+
+Title   Restrict sshd user access via AllowGroups
+Rule    sshd_configure_allow_groups
+Result  fail
+
+Title   Restrict sshd user access via AllowUsers
+Rule    sshd_configure_allow_users
+Result  fail
+
+Title   Restrict sshd user access via DenyGroups
+Rule    sshd_configure_deny_groups
+Result  pass
+
+Title   Restrict sshd user access via DenyUsers
+Rule    sshd_configure_deny_users
+Result  pass
+
+Title   Remove the X Windows Package Group
+Rule    package_xorg-x11-server-common_removed
+Result  pass

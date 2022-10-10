@@ -1,0 +1,398 @@
+---
+
+- name: "Automated| 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
+  block:
+  - name: "Automated| 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
+    lineinfile:
+        dest: /etc/modprobe.d/CIS.conf
+        regexp: "^(#)?install cramfs(\\s|$)"
+        line: "install cramfs /bin/true"
+        state: present
+        owner: root
+        group: root
+        mode: 0644
+        create: true
+
+  - name: "Automated | 1.1.1.1 | PATCH | Remove cramfs module"
+    modprobe:
+        name: cramfs
+        state: absent
+  when:
+    - ubuntu2004cis_rule_1_1_1_1
+
+
+- name: "Automated | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
+  block:
+  - name: "Automated | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
+    lineinfile:
+        dest: /etc/modprobe.d/CIS.conf
+        regexp: "^(#)?install freevxfs"
+        line: "install freevxfs /bin/true"
+        state: present
+        create: true
+
+  - name: "Automated | 1.1.1.2 | PATCH | Remove freevxfs module"
+    modprobe:
+        name: freevxfs
+        state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_1_2
+
+
+- name: "Automated | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled"
+  block:
+  - name: "Automated | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled"
+    lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install jffs2(\\s|$)"
+      line: "install jffs2 /bin/true"
+      state: present
+      create: true
+
+  - name: "Automated | 1.1.1.3 | PATCH | Remove jffs2 module"
+    modprobe:
+      name: jffs2
+      state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_1_3
+
+
+- name: "Automated | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
+  block:
+  - name: "Automated | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
+    lineinfile:
+        dest: /etc/modprobe.d/CIS.conf
+        regexp: "^(#)?install hfs(\\s|$)"
+        line: "install hfs /bin/true"
+        state: present
+        create: true
+
+  - name: "Automated | 1.1.1.4 | PATCH | Remove hfs module"
+    modprobe:
+        name: hfs
+        state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_1_4
+
+
+- name: "Automated | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
+  block:
+  - name: "Automated | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
+    lineinfile:
+        dest: /etc/modprobe.d/CIS.conf
+        regexp: "^(#)?install hfsplus(\\s|$)"
+        line: "install hfsplus /bin/true"
+        state: present
+        create: true
+
+  - name: "Automated | 1.1.1.5 | PATCH | Remove hfsplus module"
+    modprobe:
+        name: hfsplus
+        state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_1_5
+
+
+- name: "Manual | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
+  block:
+    - name: "Manual | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
+      lineinfile:
+        dest: /etc/modprobe.d/squashfs.conf
+        regexp: "^(#)?install squashfs(\\s|$)"
+        line: install squashfs /bin/true
+        create: yes
+
+    - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled | Disable squashfs"
+      modprobe:
+          name: squashfs
+          state: absent
+      ignore_errors: yes
+  when:
+      - ubuntu2004cis_rule_1_1_1_6
+
+
+- name: "Automated | 1.1.1.7 | PATCH | Ensure mounting of udf filesystems is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install udf(\\s|$)"
+      line: "install udf /bin/true"
+      state: present
+      create: true
+  when:
+      - ubuntu2004cis_rule_1_1_1_7
+
+- name: "Automated | 1.1.1.7 | PATCH | Remove udf module"
+  modprobe:
+      name: udf
+      state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_1_7
+
+
+- name: "AUTOMATED | 1.1.2 | PATCH | Ensure /tmp is configured"
+  mount:
+      path: /tmp
+      src: tmpfs
+      state: mounted
+      fstype: tmpfs
+      opts: "{{ ubuntu2004cis_tmp_fstab_options }}"
+
+  when:
+    - ubuntu2004cis_rule_1_1_2
+
+
+- name: |
+    "AUTOMATED | 1.1.3 | PATCH | Ensure nodev option set on /tmp partition"
+    "AUTOMATED | 1.1.4 | PATCH | Ensure nosuid option set on /tmp partition"
+    "AUTOMATED | 1.1.5 | PATCH | Ensure noexec option set on /tmp partition"
+  mount:
+      name: /tmp
+      src: tmpfs
+      state: remounted
+      fstype: tmpfs
+      opts: "{{ ubuntu2004cis_tmp_fstab_options }}"
+  when: 
+    - ubuntu2004cis_rule_1_1_3
+    - ubuntu2004cis_rule_1_1_4
+    - ubuntu2004cis_rule_1_1_5
+
+
+- name: "AUTOMATED | 1.1.6 | PATCH | Ensure /dev/shm is configured"
+  mount:
+      name: /dev/shm
+      src: tmpfs
+      state: mounted
+      fstype: tmpfs
+      opts: "{{ ubuntu2004cis_dev_shm_fstab_options }}"
+  when:
+    - ubuntu2004cis_rule_1_1_6
+
+
+- name: |
+    "AUTOMATED | 1.1.7 | PATCH | Ensure nodev option set on /dev/shm partition"
+    "AUTOMATED | 1.1.8 | PATCH | Ensure nosuid option set on /dev/shm partition"
+    "AUTOMATED | 1.1.9 | PATCH | Ensure noexec option set on /dev/shm partition"
+  mount:
+      name: /dev/shm
+      src: tmpfs
+      state: remounted
+      fstype: tmpfs
+      opts: "{{ ubuntu2004cis_dev_shm_fstab_options }}"
+  when:
+    - ubuntu2004cis_rule_1_1_7
+    - ubuntu2004cis_rule_1_1_8
+    - ubuntu2004cis_rule_1_1_9
+
+
+- name: AUTOMATED | 1.1.10 | PATCH | Ensure /var is mounted 
+  block:
+
+    - name: Create 4 equal partition  
+      parted:
+        device: /dev/{{ ubuntu_device_src }}
+        number: "{{ (item | int | abs) + 1 }}"
+        label: gpt
+        flags: [ lvm ]
+        name: "disk{{ (item | int | abs) + 1 }}"
+        part_start: "{{ (item | int | abs) * 20 }}%" # make percentage as variables
+        part_end: "{{ (item | int | abs) * 20 + 20 }}%"
+        unit: "%"
+        state: present
+      with_sequence: start=0 count={{ ubuntu2004_partition_count }}
+
+    # - shell: mv -f /var /var1
+
+    # - name: Create a directory
+    #   file:
+    #     path: /var
+    #     state: directory
+    #     mode: '0755'
+
+    - name: format the ext4 filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/{{ ubuntu_device_src }}1
+    - name: "mount the partition"
+      mount:
+       path: /var
+       src: /dev/{{ ubuntu_device_src }}1
+       fstype: ext4
+       state: mounted
+    # - mount:
+    #     fstype: ext4
+    #     src: /dev/{{ ubuntu_device_src }}1
+    #     path: /var
+    #     state: mounted
+
+    # - name: Copy file with owner and permissions
+    #   shell: rsync -avzh /var1/ /var
+
+  when:
+    - ubuntu2004cis_rule_1_1_10
+  tags:
+    - rule_1_1_10
+
+- name: AUTOMATED | 1.1.11 | PATCH | Ensure /var/tmp is mounted 
+  block:
+    - name: format the ext4 filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/{{ ubuntu_device_src }}2
+
+    - mount:
+        fstype: ext4
+        src: /dev/{{ ubuntu_device_src }}2
+        path: /var/tmp
+        state: mounted
+
+    - name: Copy file with owner and permissions
+      shell: rsync -avzh /var1/tmp/ /var/tmp
+   
+  when:
+    - ubuntu2004cis_rule_1_1_11
+  tags:
+    - rule_1_1_11
+
+- name: |
+    "AUTOMATED | 1.1.12 | PATCH | Ensure nodev option set on /var/tmp partition"
+    "AUTOMATED | 1.1.13 | PATCH | Ensure nosuid option set on /var/tmp partition"
+    "AUTOMATED | 1.1.14 | PATCH | Ensure noexec option set on /var/tmp partition"
+  mount:
+      src: /dev/{{ ubuntu_device_src }}2
+      path: /var/tmp
+      state: remounted
+      fstype: ext4
+      opts: "{{ ubuntu2004cis_var_tmp_fstab_options }}"
+  when:
+    - ubuntu2004cis_rule_1_1_12
+    - ubuntu2004cis_rule_1_1_13
+    - ubuntu2004cis_rule_1_1_14
+  tags:
+    - rule_1_1_12_14
+
+- name: AUTOMATED | 1.1.15 | PATCH | Ensure /var/log is mounted 
+  block:
+    - name: format the ext4 filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/{{ ubuntu_device_src }}3
+
+    - mount:
+        fstype: ext4
+        src: /dev/{{ ubuntu_device_src }}3
+        path: /var/log
+        state: mounted
+
+    - name: Copy file with owner and permissions
+      shell: rsync -avzh /var1/log/ /var/log
+   
+  when:
+    - ubuntu2004cis_rule_1_1_15
+  tags:
+    - rule_1_1_15
+
+- name: AUTOMATED | 1.1.16 | PATCH | Ensure /var/log/audit is mounted 
+  block:
+    - name: format the ext4 filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/{{ ubuntu_device_src }}4
+
+    - mount:
+        fstype: ext4
+        src: /dev/{{ ubuntu_device_src }}4
+        path: /var/log/audit
+        state: mounted
+
+    - name: Remove old var
+      shell: rm -rf /var1 
+  
+  when:
+    - ubuntu2004cis_rule_1_1_16
+  tags:
+    - rule_1_1_16
+# - name: AUTOMATED | 1.1.17 | PATCH | Ensure /home is mounted 
+#   block:
+#     - name: format the xfs filesystem
+#       filesystem:
+#         fstype: xfs
+#         dev: /dev/{{ ubuntu_device_src }}5
+
+#     - shell: sudo mv -f /home /home1 
+
+#     - mount:
+#         fstype: xfs
+#         src: /dev/{{ ubuntu_device_src }}5
+#         path: /home
+#         state: mounted
+
+#     - name: Copy file with owner and permissions
+#       shell: sudo rsync -avzh /home1/ /home
+
+#     # - name: Remove old var
+#     #   shell: sudo rm -rf /home1 
+  
+#   when:
+#     - ubuntu2004cis_rule_1_1_17
+
+# - name: "SCORED | 1.1.18 | PATCH | Ensure nodev option set on /home partition"
+#   mount:
+#       name: "/home"
+#       src: "{{ item.device }}"
+#       state: mounted
+#       fstype: "{{ item.fstype }}"
+#       opts: "nodev"
+#   when:
+#       - ubuntu2004cis_rule_1_1_18
+#       - item.mount == "/home"
+#   with_items:
+#       - "{{ ansible_mounts }}"
+
+
+- name: "MANUAL | 1.1.19 | AUDIT | Ensure nodev option set on removable media partitions"
+  debug:
+      msg: "Warning!!!! Not relevant control"
+  when:
+      - ubuntu2004cis_rule_1_1_19
+
+
+- name: "MANUAL | 1.1.20 | AUDIT | Ensure nosuid option set on removable media partitions"
+  debug:
+      msg: "Warning!!!! Not relevant control"
+  when:
+      - ubuntu2004cis_rule_1_1_20
+
+
+- name: "MANUAL | 1.1.21 | AUDIT | Ensure noexec option set on removable media partitions"
+  debug:
+      msg: "Warning!!!! Not relevant control"
+  when:
+      - ubuntu2004cis_rule_1_1_21
+
+
+- name: "AUTOMATED | 1.1.22 | PATCH | Ensure sticky bit is set on all world-writable directories"
+  shell: df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null | xargs -I '{}' chmod a+t '{}'
+  failed_when: ubuntu2004cis_1_1_22_status.rc>0
+  check_mode: false
+  register: ubuntu2004cis_1_1_22_status
+  when:
+      - ubuntu2004cis_rule_1_1_22
+
+
+- name: "AUTOMATED | 1.1.23 | PATCH | Disable Automounting"
+  service:
+      name: autofs
+      state: stopped
+      enabled: no
+  when:
+      - ubuntu2004cis_rule_1_1_23
+      - ubuntu2004cis_autofs_service_status.stdout == "loaded"
+      - not ubuntu2004cis_allow_autofs
+
+
+- name: "SCORED | 1.1.24 | PATCH | Remove usb-storage module"
+  modprobe:
+      name: usb-storage
+      state: absent
+  when:
+      - ubuntu2004cis_rule_1_1_24
